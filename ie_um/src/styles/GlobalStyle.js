@@ -23,6 +23,7 @@ ${reset}
     width: 100%;
     margin: 0 auto;
     background-color: #fdfdfd;
+    position: relative;
     }
 
     button{

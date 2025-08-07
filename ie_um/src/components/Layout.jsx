@@ -1,12 +1,18 @@
 import { Outlet } from 'react-router-dom';
+import Header from './Header/Header';
+import styled from 'styled-components';
+
+export const Main = styled.main`
+   padding-top: 56px;
+`;
 
 const Layout = () => {
    return (
       <>
-         {/**여기에 헤더 */}
-         <main>
+         <Header />
+         <Main>
             <Outlet />
-         </main>
+         </Main>
       </>
    );
 };
