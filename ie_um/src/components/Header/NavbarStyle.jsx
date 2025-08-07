@@ -11,9 +11,9 @@ export const Overlay = styled.div`
 
 // 네비게이션 바 컨테이너
 export const NavbarContainer = styled.nav`
-   position: absolute;
+   position: fixed;
    top: 0;
-   right: 0;
+   right: calc((100vw - 390px) / 2);
    width: 200px;
    background-color: ${(props) => props.theme.lightGray};
    padding: 30px;
