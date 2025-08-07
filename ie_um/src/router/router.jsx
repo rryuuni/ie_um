@@ -15,7 +15,10 @@ export const router = createBrowserRouter([
          { path: '/community', element: <Community /> },
          { path: '/cooperate', element: <Cooperate /> },
          { path: '/mypage', element: <MyPage /> },
-         { path: '/login', element: <Login /> },
       ],
+   },
+   {
+      path: '/login',
+      element: <Login />, // Header 없이 렌더링됨
    },
 ]);
