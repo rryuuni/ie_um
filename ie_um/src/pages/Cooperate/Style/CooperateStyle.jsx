@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Wrap = styled.div`
    display: flex;
@@ -82,4 +83,9 @@ export const BtnWrap = styled.div`
    align-items: center;
    margin-top: auto;
    margin-bottom: -5px;
+`;
+
+export const StyledLink = styled(Link)`
+   text-decoration: none;
+   color: black;
 `;

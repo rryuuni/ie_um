@@ -1,4 +1,4 @@
-import * as S from './CooperateStyle';
+import * as S from './Style/CooperateStyle';
 import { DummyCooperate } from '../../constants/DummyData';
 
 const Cooperate = ({ cooperate = DummyCooperate }) => {
@@ -7,8 +7,8 @@ const Cooperate = ({ cooperate = DummyCooperate }) => {
          <S.Title>동행그룹</S.Title>
          <S.CreateBtn>그룹생성</S.CreateBtn>
          {cooperate.map((item) => (
-            <S.Card>
-               <div key={item.id}>
+            <S.Card key={item.id}>
+               <S.StyledLink to={`/cooperate/${item.id}`}>
                   <S.CardWrap>
                      <div>
                         <S.CardTitle>{item.title}</S.CardTitle>
@@ -22,7 +22,7 @@ const Cooperate = ({ cooperate = DummyCooperate }) => {
                         <S.CardBtn>신청하기</S.CardBtn>
                      </S.BtnWrap>
                   </S.CardWrap>
-               </div>
+               </S.StyledLink>
             </S.Card>
          ))}
       </S.Wrap>

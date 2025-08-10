@@ -5,6 +5,7 @@ import Login from '../pages/Login/Login';
 import MainPage from '../pages/MainPage/MainPage';
 import MyPage from '../pages/MyPage/MyPage';
 import Layout from '../components/Layout';
+import CooperateDetail from '../pages/Cooperate/CooperateDetail';
 
 export const router = createBrowserRouter([
    {
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
          { path: '/', element: <MainPage /> },
          { path: '/community', element: <Community /> },
          { path: '/cooperate', element: <Cooperate /> },
+         { path: '/cooperate/:id', element: <CooperateDetail /> },
          { path: '/mypage', element: <MyPage /> },
       ],
    },
