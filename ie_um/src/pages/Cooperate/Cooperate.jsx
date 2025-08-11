@@ -1,11 +1,16 @@
 import * as S from './Style/CooperateStyle';
 import { DummyCooperate } from '../../constants/DummyData';
+import { useNavigate } from 'react-router-dom';
 
 const Cooperate = ({ cooperate = DummyCooperate }) => {
+   const navigate = useNavigate();
+
    return (
       <S.Wrap>
          <S.Title>동행그룹</S.Title>
-         <S.CreateBtn>그룹생성</S.CreateBtn>
+         <S.CreateBtn onClick={() => navigate('/cooperate/write')}>
+            그룹생성
+         </S.CreateBtn>
          {cooperate.map((item) => (
             <S.Card key={item.id}>
                <S.StyledLink to={`/cooperate/${item.id}`}>
