@@ -9,7 +9,7 @@ const MyPage = () => {
 
    const menuList = [
       { name: '내가 쓴 글', path: '/mypage/posts' },
-      { name: '추천한 글', path: '/mypage/recommends' },
+      { name: '좋아요한 글', path: '/mypage/likes' },
       { name: '저장한 장소', path: '/mypage/scraps-location' },
       { name: '나의 동행 그룹', path: '/mypage/my-accompanies' },
       { name: '신청한 동행 그룹', path: '/mypage/applied-accompanies' },
@@ -17,15 +17,11 @@ const MyPage = () => {
    return (
       <S.Container>
          <S.ProfileWrap>
-            <S.ProfileImage>
-               <S.CameraWrap>
-                  <RiCameraLine
-                     style={{ cursor: 'pointer' }}
-                     color="#374957"
-                     size={14}
-                  ></RiCameraLine>
-               </S.CameraWrap>
-            </S.ProfileImage>
+            <S.ProfileImage></S.ProfileImage>
+            <S.CameraWrap>
+               <RiCameraLine color="#374957" size={14} />
+            </S.CameraWrap>
+
             <S.UserName>
                <span style={{ color: theme.mainColor }}>{userName}</span>님
                <RiPencilLine
@@ -33,7 +29,7 @@ const MyPage = () => {
                   color="#999"
                   size={15}
                   onClick={() => navigate('/mypage/edit-profile')}
-               ></RiPencilLine>
+               />
             </S.UserName>
          </S.ProfileWrap>
 

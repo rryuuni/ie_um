@@ -20,8 +20,6 @@ export const ProfileImage = styled.div`
    border-radius: 50%;
    margin-bottom: 10px;
 
-   position: relative;
-
    img {
       width: 100%;
       height: 100%;
@@ -34,14 +32,12 @@ export const CameraWrap = styled.div`
    align-items: center;
    justify-content: center;
 
-   position: absolute;
-   right: 5px;
-   bottom: 5px;
-
    width: 20px;
    height: 20px;
    background-color: #f5f5f5;
    border-radius: 50%;
+
+   cursor: pointer;
 `;
 
 export const UserName = styled.div`

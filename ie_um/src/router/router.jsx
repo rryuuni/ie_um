@@ -8,7 +8,7 @@ import Layout from '../components/Layout';
 import CooperateDetail from '../pages/Cooperate/CooperateDetail';
 import CooperateWrite from '../pages/Cooperate/CooperateWrite';
 import MyPosts from '../pages/MyPage/MyPosts';
-import MyRecommends from '../pages/MyPage/MyRecommends';
+import MyLikes from '../pages/MyPage/MyLikes';
 import MyScraps from '../pages/MyPage/MyScraps';
 import EditProfile from '../pages/MyPage/EditProfile';
 
@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
          { path: '/mypage', element: <MyPage /> },
          { path: '/mypage/edit-profile', element: <EditProfile /> },
          { path: '/mypage/posts', element: <MyPosts /> },
-         { path: '/mypage/recommends', element: <MyRecommends /> },
+         { path: '/mypage/likes', element: <MyLikes /> },
          { path: '/mypage/scraps-location', element: <MyScraps /> },
       ],
    },

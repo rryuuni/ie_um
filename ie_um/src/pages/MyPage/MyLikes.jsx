@@ -1,5 +1,5 @@
-import { RiHeart3Line } from 'react-icons/ri';
-import * as S from './Style/MyPostsStyle';
+import { RiHeart3Fill } from 'react-icons/ri';
+import * as S from './Style/MyLikesStyle';
 
 const MOCK = Array.from({ length: 7 }).map((_, i) => ({
    id: i + 1,
@@ -8,10 +8,10 @@ const MOCK = Array.from({ length: 7 }).map((_, i) => ({
    like: 123,
 }));
 
-const MyPosts = () => {
+const MyLikes = () => {
    return (
       <S.Container>
-         <S.Title>내가 쓴 글</S.Title>
+         <S.Title>좋아요한 글</S.Title>
 
          <S.List>
             {MOCK.map((item) => (
@@ -23,7 +23,7 @@ const MyPosts = () => {
                      </div>
 
                      <S.HeartWrap>
-                        <RiHeart3Line size={11} />
+                        <RiHeart3Fill size={11} />
                         <S.HeartCount>{item.like}</S.HeartCount>
                      </S.HeartWrap>
                   </S.Row>
@@ -35,4 +35,4 @@ const MyPosts = () => {
    );
 };
 
-export default MyPosts;
+export default MyLikes;
