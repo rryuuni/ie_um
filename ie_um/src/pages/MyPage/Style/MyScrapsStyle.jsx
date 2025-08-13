@@ -14,6 +14,7 @@ export const Title = styled.h1`
 export const Item = styled.div`
    display: flex;
    align-items: center;
+   margin-top: 10px;
    padding: 14px 16px;
    border-bottom: 1px solid #eee;
 `;
@@ -35,7 +36,6 @@ export const TextWrap = styled.div`
 
 export const LocationTitle = styled.div`
    font-size: 18px;
-   font-weight: 600;
    margin-bottom: 4px;
 `;
 
