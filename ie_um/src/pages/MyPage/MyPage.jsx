@@ -17,10 +17,11 @@ const MyPage = () => {
    return (
       <S.Container>
          <S.ProfileWrap>
-            <S.ProfileImage></S.ProfileImage>
-            <S.CameraWrap>
-               <RiCameraLine color="#374957" size={14} />
-            </S.CameraWrap>
+            <S.ProfileImage>
+               <S.CameraWrap>
+                  <RiCameraLine color="#374957" size={14} />
+               </S.CameraWrap>
+            </S.ProfileImage>
 
             <S.UserName>
                <span style={{ color: theme.mainColor }}>{userName}</span>님

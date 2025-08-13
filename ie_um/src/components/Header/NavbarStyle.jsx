@@ -7,6 +7,8 @@ export const Overlay = styled.div`
    backdrop-filter: blur(2px);
    pointer-events: ${(props) => (props.open ? 'auto' : 'none')};
    opacity: ${(props) => (props.open ? 1 : 0)};
+
+   z-index: 10000;
 `;
 
 // 네비게이션 바 컨테이너
@@ -19,6 +21,8 @@ export const NavbarContainer = styled.nav`
    padding: 30px;
    border-radius: 10px;
    display: ${(props) => (props.open ? 'flex' : 'none')};
+
+   z-index: 10001;
 `;
 
 export const MenuList = styled.ul`
