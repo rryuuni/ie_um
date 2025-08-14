@@ -24,6 +24,16 @@ const MainTag = () => {
       }));
    };
 
+   const isDisabled = Object.values(selectedTags).some((value) => value === '');
+
+   const handleClick = () => {
+      if (isDisabled) {
+         alert('태그를 모두 선택하세요.');
+         return;
+      }
+      navigate('/ai/result');
+   };
+
    return (
       <S.Wrap>
          <S.Title>태그를 선택해주세요.</S.Title>
@@ -43,9 +53,7 @@ const MainTag = () => {
          ))}
 
          <S.BtnWrap>
-            <S.Btn onClick={() => navigate('/ai/result')}>
-               AI 추천 시작하기
-            </S.Btn>
+            <S.Btn onClick={handleClick}>AI 추천 시작하기</S.Btn>
          </S.BtnWrap>
       </S.Wrap>
    );
