@@ -49,7 +49,9 @@ const Community = ({ community = DummyCommunity }) => {
             ))}
          </S.List>
          <S.ButtonWrap>
-            <S.WriteButton>글 작성</S.WriteButton>
+            <S.WriteButton onClick={() => navigate('/community/write')}>
+               글 작성
+            </S.WriteButton>
          </S.ButtonWrap>
          <MyPagination
             activePage={activePage}
