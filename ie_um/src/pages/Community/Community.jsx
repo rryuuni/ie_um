@@ -1,22 +1,18 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from './Style/CommunityStyle';
 import { RiHeart3Line, RiSearchLine } from 'react-icons/ri';
 import MyPagination from '../../components/Pagination';
+import { DummyCommunity } from '../../constants/DummyData';
 
-const Community = () => {
+const Community = ({ community = DummyCommunity }) => {
+   const navigate = useNavigate();
    const [activePage, setActivePage] = useState(1);
-
-   const MOCK = Array.from({ length: 16 }).map((_, i) => ({
-      id: i + 1,
-      title: '성공회대 근처 맛집 후기',
-      date: '2025.08.03',
-      like: 123,
-   }));
 
    const itemsPerPage = 7;
    const LastItem = activePage * itemsPerPage;
    const FirstItem = LastItem - itemsPerPage;
-   const currentItems = MOCK.slice(FirstItem, LastItem);
+   const currentItems = community.slice(FirstItem, LastItem);
 
    const handlePageChange = (pageNumber) => {
       setActivePage(pageNumber);
@@ -37,7 +33,7 @@ const Community = () => {
          <S.List>
             {currentItems.map((item) => (
                <li key={item.id}>
-                  <S.Row>
+                  <S.PostLink to={`/community/${item.id}`}>
                      <div>
                         <S.PostTitle>{item.title}</S.PostTitle>
                         <S.PostDate>{item.date}</S.PostDate>
@@ -45,9 +41,9 @@ const Community = () => {
 
                      <S.HeartWrap>
                         <RiHeart3Line size={11} />
-                        <S.HeartCount>{item.like}</S.HeartCount>
+                        <S.HeartCount>{item.heart}</S.HeartCount>
                      </S.HeartWrap>
-                  </S.Row>
+                  </S.PostLink>
                   <S.Divider />
                </li>
             ))}
@@ -58,7 +54,7 @@ const Community = () => {
          <MyPagination
             activePage={activePage}
             itemsCountPerPage={itemsPerPage}
-            totalItemsCount={MOCK.length}
+            totalItemsCount={community.length}
             pageRangeDisplayed={itemsPerPage}
             onChange={handlePageChange}
          />

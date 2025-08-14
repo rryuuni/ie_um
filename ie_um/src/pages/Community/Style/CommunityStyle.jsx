@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -28,12 +29,11 @@ export const Search = styled.input`
 
    &::placeholder {
       color: white;
-      font-size: 17px;
+      font-size: 16px;
    }
 `;
 
 export const SearchIcon = styled.div`
-   /* transform: translateY(-100%); */
    position: absolute;
    top: 50%;
    right: 10px;
@@ -45,10 +45,12 @@ export const List = styled.ul`
    padding: 0;
 `;
 
-export const Row = styled.div`
+export const PostLink = styled(Link)`
    display: flex;
    justify-content: space-between;
    margin-top: 20px;
+   text-decoration: none;
+   color: black;
 `;
 
 export const PostTitle = styled.div`
