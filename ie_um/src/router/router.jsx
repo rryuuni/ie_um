@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Community from '../pages/Community/Community';
 import Cooperate from '../pages/Cooperate/Cooperate';
 import Login from '../pages/Login/Login';
 import MainPage from '../pages/MainPage/MainPage';
@@ -14,6 +13,9 @@ import MyLikes from '../pages/MyPage/MyLikes';
 import MyScraps from '../pages/MyPage/MyScraps';
 import EditProfile from '../pages/MyPage/EditProfile';
 import MainResultDetail from '../pages/MainPage/MainResultDetail';
+import Community from '../pages/Community/Community';
+import CommunityDetail from '../pages/Community/CommunityDetail';
+import CommunityWrite from '../pages/Community/CommunityWrite';
 
 export const router = createBrowserRouter([
    {
@@ -33,6 +35,9 @@ export const router = createBrowserRouter([
          { path: '/mypage/posts', element: <MyPosts /> },
          { path: '/mypage/likes', element: <MyLikes /> },
          { path: '/mypage/scraps-location', element: <MyScraps /> },
+         { path: '/community', element: <Community /> },
+         { path: '/community/:id', element: <CommunityDetail /> },
+         { path: '/community/write', element: <CommunityWrite /> },
       ],
    },
    {
