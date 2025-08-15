@@ -138,7 +138,9 @@ export const DummyPlace = [
       address: '서울특별시 구로구 경인로 445',
       lat: 37.5005419,
       lng: 126.8676709,
-     
+   },
+];
+
 // 커뮤니티 포스트 더미데이터
 export const DummyCommunity = [
    {
