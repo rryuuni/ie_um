@@ -13,6 +13,7 @@ import MyPosts from '../pages/MyPage/MyPosts';
 import MyLikes from '../pages/MyPage/MyLikes';
 import MyScraps from '../pages/MyPage/MyScraps';
 import EditProfile from '../pages/MyPage/EditProfile';
+import MainResultDetail from '../pages/MainPage/MainResultDetail';
 
 export const router = createBrowserRouter([
    {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
          { path: '/mypage', element: <MyPage /> },
          { path: '/hashtag', element: <MainTag /> },
          { path: '/ai/result', element: <MainResult /> },
+         { path: '/ai/result/:id', element: <MainResultDetail /> },
          { path: '/mypage/edit-profile', element: <EditProfile /> },
          { path: '/mypage/posts', element: <MyPosts /> },
          { path: '/mypage/likes', element: <MyLikes /> },

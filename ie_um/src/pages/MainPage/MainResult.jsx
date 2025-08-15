@@ -9,8 +9,9 @@ const MainResult = ({ resources = DummyPlace }) => {
          <S.SecTitle>AI가 당신에게 딱 맞는 자원을 추천합니다!</S.SecTitle>
 
          {resources.map((resources, idx) => (
-            <S.LinkSt to={`/ai/result/${resources.id}`}>
-               <S.CardWrap key={idx}>
+            <S.CardWrap key={idx}>
+               {' '}
+               <S.LinkSt to={`/ai/result/${resources.id}`}>
                   <S.CardDateWrap>
                      <RiPushpinFill color="#959595" />
                      <S.CardDate>{resources.date}</S.CardDate>
@@ -19,8 +20,8 @@ const MainResult = ({ resources = DummyPlace }) => {
                   <S.CardPlace>
                      {resources.place} | {resources.address}
                   </S.CardPlace>
-               </S.CardWrap>
-            </S.LinkSt>
+               </S.LinkSt>
+            </S.CardWrap>
          ))}
       </S.Wrap>
    );

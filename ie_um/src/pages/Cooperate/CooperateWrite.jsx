@@ -1,6 +1,10 @@
 import * as S from './Style/CooperateWriteStyle';
+import { useLocation } from 'react-router-dom';
 
 const CooperateWrite = () => {
+   const location = useLocation();
+   const placeFromDetail = location.state?.place || '';
+
    return (
       <S.Wrap>
          <S.InputWrap>
@@ -18,7 +22,10 @@ const CooperateWrite = () => {
             </S.ItemWrap>
             <S.ItemWrap>
                <S.InputTitle>장소</S.InputTitle>
-               <S.Input placeholder="장소를 입력해주세요." />
+               <S.Input
+                  placeholder="장소를 입력해주세요."
+                  defaultValue={placeFromDetail}
+               />
             </S.ItemWrap>
             <S.ItemWrap>
                <S.InputTitle>일시</S.InputTitle>
