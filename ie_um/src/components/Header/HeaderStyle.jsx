@@ -11,6 +11,7 @@ export const HeaderSt = styled.div`
    position: fixed;
    top: 0;
    background-color: #fdfdfd;
+   z-index: 100;
 `;
 
 export const Logo = styled.img`
