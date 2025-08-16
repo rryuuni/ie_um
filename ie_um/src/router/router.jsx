@@ -16,6 +16,8 @@ import MainResultDetail from '../pages/MainPage/MainResultDetail';
 import Community from '../pages/Community/Community';
 import CommunityDetail from '../pages/Community/CommunityDetail';
 import CommunityWrite from '../pages/Community/CommunityWrite';
+// 카카오로그인콜백
+import KakaoRedirection from '../pages/Login/KakaoRedirection';
 
 export const router = createBrowserRouter([
    {
@@ -44,4 +46,5 @@ export const router = createBrowserRouter([
       path: '/login',
       element: <Login />, // Header 없이 렌더링됨
    },
+   { path: '/api/oauth2/callback/kakao', element: <KakaoRedirection /> },
 ]);
