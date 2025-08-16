@@ -23,19 +23,13 @@ const KakaoRedirection = () => {
                   },
                },
             );
-
-            // 받은 콘솔 확인
-            const token = data?.accessToken ?? data?.data?.accessToken;
-            if (!token) throw new Error('토큰이 응답에 없습니다');
-            console.log('[KakaoRedirection] accessToken:', token);
-
             // 받은 토큰 localStorage 저장
             localStorage.setItem('accessToken', data.accessToken);
 
             // 메인 페이지로 이동
             navigate('/');
 
-            // 에러
+            // 에러 처리
          } catch (err) {
             console.error(err);
             alert('로그인 실패');
