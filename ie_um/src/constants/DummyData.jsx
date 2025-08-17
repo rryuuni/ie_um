@@ -102,6 +102,7 @@ export const DummyCooperate = [
    },
 ];
 
+// 장소 더미데이터
 export const DummyPlace = [
    {
       id: 1,
@@ -141,7 +142,7 @@ export const DummyPlace = [
    },
 ];
 
-// 커뮤니티 포스트 더미데이터
+// 포스트 더미데이터
 export const DummyCommunity = [
    {
       id: 1,

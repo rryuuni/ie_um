@@ -1,24 +1,21 @@
 import { RiBookmarkFill, RiMore2Fill } from 'react-icons/ri';
 import * as S from './Style/MyScrapsStyle';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MyPagination from '../../components/Pagination';
 import useModal from '../../hooks/useModal';
 import DeleteModal from '../../components/Modal/DeleteModal';
+import { DummyPlace } from '../../constants/DummyData';
 
-const MyScrapsLocation = () => {
+const MyScrapsLocation = ({ place = DummyPlace }) => {
    const [activePage, setActivePage] = useState(1);
    const { openModal, closeModal } = useModal();
-
-   const MOCK = Array.from({ length: 20 }).map((_, i) => ({
-      id: i + 1,
-      title: '고척스카이돔',
-      address: '서울특별시 구로구 경인로 430',
-   }));
+   const navigate = useNavigate();
 
    const itemsPerPage = 6;
    const LastItem = activePage * itemsPerPage;
    const FirstItem = LastItem - itemsPerPage;
-   const currentItems = MOCK.slice(FirstItem, LastItem);
+   const currentItems = place.slice(FirstItem, LastItem);
 
    const handlePageChange = (pageNumber) => {
       setActivePage(pageNumber);
@@ -29,13 +26,16 @@ const MyScrapsLocation = () => {
          <S.Title>저장한 장소</S.Title>
          <DeleteModal onclose={() => closeModal('Delete_modal')} />
          {currentItems.map((item) => (
-            <S.Item key={item.id}>
+            <S.Item
+               key={item.id}
+               onClick={() => navigate(`../ai/result/${item.id}`)}
+            >
                <S.IconWrap>
                   <RiBookmarkFill color="white" size={20} />
                </S.IconWrap>
 
                <S.TextWrap>
-                  <S.LocationTitle>{item.title}</S.LocationTitle>
+                  <S.LocationTitle>{item.place}</S.LocationTitle>
                   <S.Address>{item.address}</S.Address>
                </S.TextWrap>
 
@@ -48,7 +48,7 @@ const MyScrapsLocation = () => {
          <MyPagination
             activePage={activePage}
             itemsCountPerPage={itemsPerPage}
-            totalItemsCount={MOCK.length}
+            totalItemsCount={place.length}
             pageRangeDisplayed={itemsPerPage}
             onChange={handlePageChange}
          />
