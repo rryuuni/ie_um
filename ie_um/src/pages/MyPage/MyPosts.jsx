@@ -1,22 +1,16 @@
 import { RiHeart3Line } from 'react-icons/ri';
-import * as S from './Style/MyPostsStyle';
+import * as S from '../../styles/PostStyle';
 import { useState } from 'react';
 import MyPagination from '../../components/Pagination';
+import { DummyCommunity } from '../../constants/DummyData';
 
-const MyPosts = () => {
+const MyPosts = ({ posts = DummyCommunity }) => {
    const [activePage, setActivePage] = useState(1);
-
-   const MOCK = Array.from({ length: 20 }).map((_, i) => ({
-      id: i + 1,
-      title: '성공회대 근처 맛집 후기',
-      date: '2025.08.03',
-      like: 123,
-   }));
 
    const itemsPerPage = 7;
    const LastItem = activePage * itemsPerPage;
    const FirstItem = LastItem - itemsPerPage;
-   const currentItems = MOCK.slice(FirstItem, LastItem);
+   const currentItems = posts.slice(FirstItem, LastItem);
 
    const handlePageChange = (pageNumber) => {
       setActivePage(pageNumber);
@@ -29,7 +23,7 @@ const MyPosts = () => {
          <S.List>
             {currentItems.map((item) => (
                <li key={item.id}>
-                  <S.Row>
+                  <S.PostLink to={`/community/${item.id}`}>
                      <div>
                         <S.PostTitle>{item.title}</S.PostTitle>
                         <S.PostDate>{item.date}</S.PostDate>
@@ -37,9 +31,9 @@ const MyPosts = () => {
 
                      <S.HeartWrap>
                         <RiHeart3Line size={11} />
-                        <S.HeartCount>{item.like}</S.HeartCount>
+                        <S.HeartCount>{item.heart}</S.HeartCount>
                      </S.HeartWrap>
-                  </S.Row>
+                  </S.PostLink>
                   <S.Divider />
                </li>
             ))}
@@ -48,7 +42,7 @@ const MyPosts = () => {
          <MyPagination
             activePage={activePage}
             itemsCountPerPage={itemsPerPage}
-            totalItemsCount={MOCK.length}
+            totalItemsCount={posts.length}
             pageRangeDisplayed={itemsPerPage}
             onChange={handlePageChange}
          />
