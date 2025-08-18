@@ -23,6 +23,11 @@ const KakaoRedirection = () => {
                   },
                },
             );
+
+            //토큰 확인
+            // const token = data?.accessToken ?? data?.data?.accessToken;
+            // console.log(token);
+
             // 받은 토큰 localStorage 저장
             localStorage.setItem('accessToken', data.accessToken);
 
