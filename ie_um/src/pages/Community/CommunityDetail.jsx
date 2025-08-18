@@ -1,5 +1,5 @@
 import { DummyCommunity } from '../../constants/DummyData';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './Style/CommunityDetailStyle';
 import { RiMapPinFill, RiHeart3Line, RiMore2Fill } from 'react-icons/ri';
 import useModal from '../../hooks/useModal';
@@ -9,10 +9,15 @@ const CommunityDetail = ({ community = DummyCommunity }) => {
    const { id } = useParams();
    const data = community.find((item) => String(item.id) === id);
    const { openModal, closeModal } = useModal();
+   const navigate = useNavigate();
 
    return (
       <S.Container>
-         <EditModal onclose={() => closeModal('Cooperate_edit_modal')} />
+         <EditModal
+            onclose={() => closeModal('Cooperate_edit_modal')}
+            id={data.id}
+            editTo={`/community/edit/${data.id}`}
+         />
          <S.Inform>
             <S.ProfileImage></S.ProfileImage>
             <S.WriteData>

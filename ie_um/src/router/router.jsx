@@ -48,6 +48,7 @@ export const router = createBrowserRouter([
          { path: '/community', element: <Community /> },
          { path: '/community/:id', element: <CommunityDetail /> },
          { path: '/community/write', element: <CommunityWrite /> },
+         { path: '/community/edit/:id', element: <CommunityWrite /> },
       ],
    },
    {
