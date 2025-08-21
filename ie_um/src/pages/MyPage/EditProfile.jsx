@@ -1,35 +1,55 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from './Style/EditProfileStyle';
+import {
+   useMemberStore,
+   AGE_MAP,
+   GENDER_MAP,
+} from '../../store/useMemberStore';
+
+const ageOptions = ['10대', '20대', '30대', '40대 이상'];
+const genderOptions = ['여자', '남자'];
 
 const EditProfile = () => {
+   const navigate = useNavigate();
+   const loadMe = useMemberStore((s) => s.loadMe);
+   const storeName = useMemberStore((s) => s.name);
+   const storeNick = useMemberStore((s) => s.nickName);
+   const storeAge = useMemberStore((s) => s.age);
+   const storeGender = useMemberStore((s) => s.gender);
+   const saveProfile = useMemberStore((s) => s.saveProfile);
+
    const [nickname, setNickName] = useState('');
-   const [age, setAge] = useState('');
-   const [gender, setGender] = useState('');
-   const [buttonActive, setButtonActive] = useState('');
+   const [ageLabel, setAgeLabel] = useState('');
+   const [genderLabel, setGenderLabel] = useState('');
 
-   const ageOptions = ['10대', '20대', '30대'];
-   const genderOptions = ['여자', '남자'];
-
-   // 저장된 정보 불러오기
+   // 저장되어 있는 정보 불러오기
    useEffect(() => {
-      const saved = localStorage.getItem('profile');
-      if (saved) {
-         const { nickname = '', age = '', gender = '' } = JSON.parse(saved);
-         setNickName(nickname);
-         setAge(age);
-         setGender(gender);
-      }
-   }, []);
+      loadMe();
+   }, [loadMe]);
 
-   const isValid = nickname.trim() !== '' && !!age && !!gender;
+   // 스토어 -> 입력값 동기화
+   useEffect(() => {
+      setNickName(storeNick?.trim() || storeName || '');
+      setAgeLabel(storeAge ? AGE_MAP[storeAge] : '');
+      setGenderLabel(storeGender ? GENDER_MAP[storeGender] : '');
+   }, [storeName, storeNick, storeAge, storeGender]);
+
+   // 유효성 검사
+   const isValid = nickname.trim() !== '' && !!ageLabel && !!genderLabel;
 
    // 저장 로직
-   const handleSubmit = (e) => {
+   const handleSubmit = async (e) => {
       e.preventDefault();
-      if (isValid) {
-         const data = { nickname: nickname.trim(), age, gender };
-         localStorage.setItem('profile', JSON.stringify(data));
+      if (!isValid) return;
+
+      try {
+         await saveProfile({ nickName: nickname, ageLabel, genderLabel });
          alert('저장되었습니다.');
+         navigate('/mypage');
+      } catch (err) {
+         console.error(err);
+         alert('저장에 실패했습니다. 잠시 후 다시 시도해 주세요.');
       }
    };
 
@@ -50,8 +70,8 @@ const EditProfile = () => {
             {ageOptions.map((option) => (
                <S.ToggleButton
                   key={option}
-                  selected={age === option}
-                  onClick={() => setAge(option)}
+                  selected={ageLabel === option}
+                  onClick={() => setAgeLabel(option)}
                >
                   {option}
                </S.ToggleButton>
@@ -63,15 +83,17 @@ const EditProfile = () => {
             {genderOptions.map((option) => (
                <S.ToggleButton
                   key={option}
-                  selected={gender === option}
-                  onClick={() => setGender(option)}
+                  selected={genderLabel === option}
+                  onClick={() => setGenderLabel(option)}
                >
                   {option}
                </S.ToggleButton>
             ))}
          </S.ToggleGroup>
          <S.ButtonWrap>
-            <S.SaveButton onClick={handleSubmit}>저장</S.SaveButton>
+            <S.SaveButton onClick={handleSubmit} disabled={!isValid}>
+               저장
+            </S.SaveButton>
          </S.ButtonWrap>
       </S.Container>
    );

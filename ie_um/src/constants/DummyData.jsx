@@ -9,6 +9,7 @@ export const DummyCooperate = [
       place: '서울특별시 구로구 연동로 320',
       capacity: '10',
       people: '2',
+      state: 'pending',
    },
    {
       id: 2,
@@ -19,6 +20,7 @@ export const DummyCooperate = [
       place: '서울특별시 구로구 연동로 320',
       capacity: '10',
       people: '2',
+      state: 'rejected',
    },
    {
       id: 3,
@@ -29,6 +31,7 @@ export const DummyCooperate = [
       place: '서울특별시 구로구 연동로 320',
       capacity: '10',
       people: '2',
+      state: 'accepted',
    },
    {
       id: 4,
@@ -39,6 +42,7 @@ export const DummyCooperate = [
       place: '서울특별시 구로구 연동로 320',
       capacity: '10',
       people: '2',
+      state: 'rejected',
    },
    {
       id: 5,
@@ -49,6 +53,7 @@ export const DummyCooperate = [
       place: '서울특별시 구로구 연동로 320',
       capacity: '10',
       people: '2',
+      state: 'accepted',
    },
    {
       id: 6,
@@ -59,6 +64,7 @@ export const DummyCooperate = [
       place: '서울특별시 구로구 연동로 320',
       capacity: '10',
       people: '2',
+      state: 'pending',
    },
    {
       id: 7,
@@ -69,6 +75,7 @@ export const DummyCooperate = [
       place: '서울특별시 구로구 연동로 320',
       capacity: '10',
       people: '2',
+      state: 'rejected',
    },
    {
       id: 8,
@@ -79,6 +86,7 @@ export const DummyCooperate = [
       place: '서울특별시 구로구 연동로 320',
       capacity: '10',
       people: '2',
+      state: 'rejected',
    },
    {
       id: 9,
@@ -89,6 +97,7 @@ export const DummyCooperate = [
       place: '서울특별시 구로구 연동로 320',
       capacity: '10',
       people: '2',
+      state: 'pending',
    },
    {
       id: 10,
@@ -99,6 +108,7 @@ export const DummyCooperate = [
       place: '서울특별시 구로구 연동로 320',
       capacity: '10',
       people: '2',
+      state: 'accepted',
    },
 ];
 
