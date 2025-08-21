@@ -26,6 +26,14 @@ export const CreateBtn = styled.button`
    margin-right: 3px;
 `;
 
+export const CardList = styled.div`
+   width: 100%;
+   min-height: 500px; /* 카드 영역 최소 높이 확보 */
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+`;
+
 export const CardWrap = styled.div`
    display: flex;
    flex-direction: row;

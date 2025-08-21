@@ -37,6 +37,7 @@ export const router = createBrowserRouter([
          { path: '/cooperate', element: <Cooperate /> },
          { path: '/cooperate/:id', element: <CooperateDetail /> },
          { path: '/cooperate/write', element: <CooperateWrite /> },
+         { path: '/cooperate/edit/:id', element: <CooperateWrite /> },
          { path: '/mypage', element: <MyPage /> },
          { path: '/hashtag', element: <MainTag /> },
          { path: '/ai/result', element: <MainResult /> },
