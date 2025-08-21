@@ -28,7 +28,8 @@ export const ToggleButton = styled.button`
    width: 75px;
    height: 45px;
    border-radius: 20px;
-   margin-right: 5px;
+
+   margin: 10px 5px 0 0;
    background-color: ${(props) => (props.selected ? '#004193' : '#fdfdfd')};
    color: ${(props) => (props.selected ? '#FFFFFF' : '#000000')};
    border: 1px solid #d9d9d9;

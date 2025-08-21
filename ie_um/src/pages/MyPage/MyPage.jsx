@@ -1,11 +1,23 @@
-import { useNavigate } from 'react-router-dom';
-import { RiPencilLine, RiCameraLine } from 'react-icons/ri';
 import * as S from './Style/MyPageStyle';
 import theme from '../../styles/theme';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { RiPencilLine, RiCameraLine } from 'react-icons/ri';
+import { useMemberStore } from '../../store/useMemberStore';
 
 const MyPage = () => {
    const navigate = useNavigate();
-   const userName = '김멋사';
+   const loadMe = useMemberStore((s) => s.loadMe);
+   const name = useMemberStore((s) => s.name);
+   const nickName = useMemberStore((s) => s.nickName);
+   const oauthName = localStorage.getItem('oauthName') || '';
+
+   const displayName =
+      (nickName && nickName.trim()) || (name && name.trim()) || oauthName || '';
+
+   useEffect(() => {
+      loadMe();
+   }, [loadMe]);
 
    const menuList = [
       { name: '내가 쓴 글', path: '/mypage/posts' },
@@ -14,6 +26,7 @@ const MyPage = () => {
       { name: '나의 동행 그룹', path: '/mypage/my-accompanies' },
       { name: '신청한 동행 그룹', path: '/mypage/applied-accompanies' },
    ];
+
    return (
       <S.Container>
          <S.ProfileWrap>
@@ -24,7 +37,10 @@ const MyPage = () => {
             </S.ProfileImage>
 
             <S.UserName>
-               <span style={{ color: theme.mainColor }}>{userName}</span>님
+               <span style={{ color: theme.mainColor }}>
+                  {displayName || '사용자'}
+               </span>
+               님
                <RiPencilLine
                   style={{ cursor: 'pointer' }}
                   color="#999"
