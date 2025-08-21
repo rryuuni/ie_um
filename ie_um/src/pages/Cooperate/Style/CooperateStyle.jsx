@@ -11,6 +11,7 @@ export const Wrap = styled.div`
 export const Title = styled.div`
    font-size: 25px;
    font-weight: 500;
+   margin-bottom: 30px;
 `;
 
 export const CreateBtn = styled.button`
@@ -20,7 +21,7 @@ export const CreateBtn = styled.button`
    height: 30px;
    border-radius: 10px;
    font-weight: 600;
-   margin-top: -4px;
+   margin-top: -34px;
    margin-bottom: 8px;
    margin-left: auto;
    margin-right: 3px;
@@ -88,4 +89,22 @@ export const BtnWrap = styled.div`
 export const StyledLink = styled(Link)`
    text-decoration: none;
    color: black;
+`;
+
+// 마이페이지 동행그룹 스타일 컴포넌트
+export const StateBtn = styled.button`
+   width: 62px;
+   height: 26px;
+   border-radius: 10px;
+   margin-top: 3px;
+   color: white;
+   font-size: 12px;
+   font-weight: 600;
+
+   background: ${({ $status, theme }) =>
+      $status === 'rejected'
+         ? '#BA5C65'
+         : $status === 'pending'
+           ? '#B4B4B4'
+           : theme.mainColorLight}; /* accepted */
 `;
