@@ -108,3 +108,12 @@ export const StateBtn = styled.button`
            ? '#B4B4B4'
            : theme.mainColorLight}; /* accepted */
 `;
+
+export const MoreButton = styled.button`
+   background: none;
+   border: none;
+   cursor: pointer;
+   padding: 4px;
+   position: absolute;
+   right: 40px;
+`;

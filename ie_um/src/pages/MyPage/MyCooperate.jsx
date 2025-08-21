@@ -3,9 +3,13 @@ import { DummyCooperate } from '../../constants/DummyData';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import MyPagination from '../../components/Pagination';
+import { RiMore2Fill } from 'react-icons/ri';
+import useModal from '../../hooks/useModal';
+import DeleteModal from '../../components/Modal/DeleteModal';
 
 const MyCooperate = ({ cooperate = DummyCooperate }) => {
    const [activePage, setActivePage] = useState(1);
+   const { openModal, closeModal } = useModal();
 
    const itemsPerPage = 4;
    const LastItem = activePage * itemsPerPage;
@@ -21,6 +25,7 @@ const MyCooperate = ({ cooperate = DummyCooperate }) => {
          <S.Title>나의 동행그룹</S.Title>
          {currentItems.map((item) => (
             <S.Card key={item.id}>
+               <DeleteModal onclose={() => closeModal('Delete_modal')} />
                <S.StyledLink to={`/cooperate/${item.id}`}>
                   <S.CardWrap>
                      <div>
@@ -36,6 +41,9 @@ const MyCooperate = ({ cooperate = DummyCooperate }) => {
                      </S.BtnWrap>
                   </S.CardWrap>
                </S.StyledLink>
+               <S.MoreButton onClick={() => openModal('Delete_modal')}>
+                  <RiMore2Fill size={20} color="#555" />
+               </S.MoreButton>
             </S.Card>
          ))}
 
