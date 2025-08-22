@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './Style/CommunityStyle';
+import * as P from '../../styles/PostStyle';
 import { RiHeart3Line, RiSearchLine } from 'react-icons/ri';
 import MyPagination from '../../components/Pagination';
 import { DummyCommunity } from '../../constants/DummyData';
@@ -18,8 +19,8 @@ const Community = ({ community = DummyCommunity }) => {
       setActivePage(pageNumber);
    };
    return (
-      <S.Container>
-         <S.Title>커뮤니티</S.Title>
+      <P.Container>
+         <P.Title>커뮤니티</P.Title>
          <S.SearchWrap>
             <S.Search
                id="search-title"
@@ -30,24 +31,24 @@ const Community = ({ community = DummyCommunity }) => {
                <RiSearchLine color="white" />
             </S.SearchIcon>
          </S.SearchWrap>
-         <S.List>
+         <P.List>
             {currentItems.map((item) => (
                <li key={item.id}>
-                  <S.PostLink to={`/community/${item.id}`}>
+                  <P.PostLink to={`/community/${item.id}`}>
                      <div>
-                        <S.PostTitle>{item.title}</S.PostTitle>
-                        <S.PostDate>{item.date}</S.PostDate>
+                        <P.PostTitle>{item.title}</P.PostTitle>
+                        <P.PostDate>{item.date}</P.PostDate>
                      </div>
 
-                     <S.HeartWrap>
+                     <P.HeartWrap>
                         <RiHeart3Line size={11} />
-                        <S.HeartCount>{item.heart}</S.HeartCount>
-                     </S.HeartWrap>
-                  </S.PostLink>
-                  <S.Divider />
+                        <P.HeartCount>{item.heart}</P.HeartCount>
+                     </P.HeartWrap>
+                  </P.PostLink>
+                  <P.Divider />
                </li>
             ))}
-         </S.List>
+         </P.List>
          <S.ButtonWrap>
             <S.WriteButton onClick={() => navigate('/community/write')}>
                글 작성
@@ -60,7 +61,7 @@ const Community = ({ community = DummyCommunity }) => {
             pageRangeDisplayed={itemsPerPage}
             onChange={handlePageChange}
          />
-      </S.Container>
+      </P.Container>
    );
 };
 
