@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const Maps = ({ lat, lng }) => {
+const Maps = ({ latitude, longitude }) => {
    useEffect(() => {
       if (typeof window === 'undefined') return;
 
@@ -8,12 +8,12 @@ const Maps = ({ lat, lng }) => {
          const container = document.getElementById('map');
 
          const options = {
-            center: new window.kakao.maps.LatLng(lat, lng),
+            center: new window.kakao.maps.LatLng(latitude, longitude),
             level: 3,
          };
          const map = new window.kakao.maps.Map(container, options);
          const marker = new window.kakao.maps.Marker({
-            position: new window.kakao.maps.LatLng(lat, lng),
+            position: new window.kakao.maps.LatLng(latitude, longitude),
          });
          marker.setMap(map);
       };
@@ -34,7 +34,7 @@ const Maps = ({ lat, lng }) => {
             });
          };
       }
-   }, [lat, lng]);
+   }, [latitude, longitude]);
 
    return <div id="map" style={{ width: '100%', height: '100%' }}></div>;
 };

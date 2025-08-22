@@ -34,6 +34,7 @@ export const TagBtn = styled.button`
    cursor: 'pointer';
    font-size: 16px;
    font-weight: 400;
+   color: black;
 
    @media only screen and (max-width: 380px) {
       padding: 3px 2px;
