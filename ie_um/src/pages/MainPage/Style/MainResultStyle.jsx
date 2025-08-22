@@ -29,6 +29,7 @@ export const CardWrap = styled.div`
    padding: 25px 15px;
    border-radius: 20px;
    margin-bottom: 25px;
+   width: 100%;
 `;
 
 export const CardDateWrap = styled.div`

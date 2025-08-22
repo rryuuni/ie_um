@@ -82,6 +82,9 @@ const CommunityDetail = () => {
             id={post.id}
             onEdit={() => navigate(`/community/edit/${post.id}`)}
             onDelete={onDelete}
+            onclose={() => closeModal('edit_modal')}
+            id={data.id}
+            editTo={`/community/edit/${data.id}`}
          />
          <S.Inform>
             <S.ProfileImage>
@@ -107,6 +110,9 @@ const CommunityDetail = () => {
                   <RiMore2Fill size={20} color="#555" />
                </S.MoreButton>
             )}
+            <S.MoreButton onClick={() => openModal('edit_modal')}>
+               <RiMore2Fill size={20} color="#555" />
+            </S.MoreButton>
          </S.Inform>
 
          <S.LocationWrap>

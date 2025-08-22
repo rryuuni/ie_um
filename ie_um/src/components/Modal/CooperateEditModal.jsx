@@ -1,7 +1,10 @@
 import * as S from './EditModalStyle';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../api/AxiosInstance';
+import { useParams } from 'react-router-dom';
 
-const EditModal = ({ onclose, editTo }) => {
+const CooperateEditModal = ({ onclose, editTo }) => {
+   const { id } = useParams();
    const navigate = useNavigate();
 
    const handleEdit = () => {
@@ -9,11 +12,20 @@ const EditModal = ({ onclose, editTo }) => {
       onclose?.();
    };
 
-   const deletePost = () => {};
+   const deletePost = async () => {
+      try {
+         await axiosInstance.delete(`/api/accompanies/${id}`);
+         alert('삭제되었습니다.');
+         navigate('/cooperate');
+      } catch (err) {
+         alert('삭제 실패');
+         console.error(err);
+      }
+   };
 
    return (
       <S.Dialog
-         id="edit_modal"
+         id="Cooperate_edit_modal"
          onClick={(e) => {
             if (e.target === e.currentTarget) {
                onclose();
@@ -28,4 +40,4 @@ const EditModal = ({ onclose, editTo }) => {
    );
 };
 
-export default EditModal;
+export default CooperateEditModal;

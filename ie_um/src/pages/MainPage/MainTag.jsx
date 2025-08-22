@@ -1,6 +1,7 @@
 import * as S from './Style/MainTagStyle';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../api/AxiosInstance';
 
 const MainTag = () => {
    const navigate = useNavigate();
@@ -31,7 +32,20 @@ const MainTag = () => {
          alert('태그를 모두 선택하세요.');
          return;
       }
-      navigate('/ai/result');
+
+      axiosInstance
+         .post('/api/resources', selectedTags)
+         .then((res) => {
+            console.log('AI 추천 결과:', res.data);
+
+            localStorage.setItem('aiResult', JSON.stringify(res.data));
+
+            navigate('/ai/result');
+         })
+         .catch((err) => {
+            alert('AI 추천 요청 실패');
+            console.error(err);
+         });
    };
 
    return (
