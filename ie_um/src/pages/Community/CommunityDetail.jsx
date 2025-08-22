@@ -14,7 +14,7 @@ const CommunityDetail = ({ community = DummyCommunity }) => {
    return (
       <S.Container>
          <EditModal
-            onclose={() => closeModal('Cooperate_edit_modal')}
+            onclose={() => closeModal('edit_modal')}
             id={data.id}
             editTo={`/community/edit/${data.id}`}
          />
@@ -24,7 +24,7 @@ const CommunityDetail = ({ community = DummyCommunity }) => {
                <S.Nickname>{data.nickname}</S.Nickname>
                <S.Date>{data.date}</S.Date>
             </S.WriteData>
-            <S.MoreButton onClick={() => openModal('Cooperate_edit_modal')}>
+            <S.MoreButton onClick={() => openModal('edit_modal')}>
                <RiMore2Fill size={20} color="#555" />
             </S.MoreButton>
          </S.Inform>

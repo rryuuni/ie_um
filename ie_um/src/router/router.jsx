@@ -174,6 +174,14 @@ export const router = createBrowserRouter([
                </RequireAuth>
             ),
          },
+         {
+            path: '/cooperate/edit/:id',
+            element: (
+               <RequireAuth>
+                  <CooperateWrite />{' '}
+               </RequireAuth>
+            ),
+         },
       ],
    },
    { path: '/login', element: <Login /> },
