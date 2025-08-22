@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
-//메인
+import RequireAuth from './RequireAuth';
+
 import MainPage from '../pages/MainPage/MainPage';
 import MainTag from '../pages/MainPage/MainTag';
 import MainResult from '../pages/MainPage/MainResult';
@@ -11,6 +12,8 @@ import MyPosts from '../pages/MyPage/MyPosts';
 import MyLikes from '../pages/MyPage/MyLikes';
 import MyScraps from '../pages/MyPage/MyScraps';
 import EditProfile from '../pages/MyPage/EditProfile';
+import MyCooperate from '../pages/MyPage/MyCooperate';
+import AppliedCooperate from '../pages/MyPage/AppliedCooperate';
 
 //커뮤니티
 import Community from '../pages/Community/Community';
@@ -32,29 +35,147 @@ export const router = createBrowserRouter([
       path: '/',
       element: <Layout />,
       children: [
-         { path: '/', element: <MainPage /> },
-         { path: '/community', element: <Community /> },
-         { path: '/cooperate', element: <Cooperate /> },
-         { path: '/cooperate/:id', element: <CooperateDetail /> },
-         { path: '/cooperate/write', element: <CooperateWrite /> },
-         { path: '/cooperate/edit/:id', element: <CooperateWrite /> },
-         { path: '/mypage', element: <MyPage /> },
-         { path: '/hashtag', element: <MainTag /> },
-         { path: '/ai/result', element: <MainResult /> },
-         { path: '/ai/result/:id', element: <MainResultDetail /> },
-         { path: '/mypage/edit-profile', element: <EditProfile /> },
-         { path: '/mypage/posts', element: <MyPosts /> },
-         { path: '/mypage/likes', element: <MyLikes /> },
-         { path: '/mypage/scraps-location', element: <MyScraps /> },
-         { path: '/community', element: <Community /> },
-         { path: '/community/:id', element: <CommunityDetail /> },
-         { path: '/community/write', element: <CommunityWrite /> },
-         { path: '/community/edit/:id', element: <CommunityWrite /> },
+         {
+            path: '/',
+            element: (
+               <RequireAuth>
+                  <MainPage />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/hashtag',
+            element: (
+               <RequireAuth>
+                  <MainTag />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/ai/result',
+            element: (
+               <RequireAuth>
+                  <MainResult />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/ai/result/:id',
+            element: (
+               <RequireAuth>
+                  <MainResultDetail />
+               </RequireAuth>
+            ),
+         },
+
+         {
+            path: '/mypage',
+            element: (
+               <RequireAuth>
+                  <MyPage />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/mypage/edit-profile',
+            element: (
+               <RequireAuth>
+                  <EditProfile />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/mypage/posts',
+            element: (
+               <RequireAuth>
+                  <MyPosts />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/mypage/likes',
+            element: (
+               <RequireAuth>
+                  <MyLikes />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/mypage/scraps-location',
+            element: (
+               <RequireAuth>
+                  <MyScraps />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/mypage/my-cooperate',
+            element: (
+               <RequireAuth>
+                  <MyCooperate />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/mypage/applied-cooperate',
+            element: (
+               <RequireAuth>
+                  <AppliedCooperate />
+               </RequireAuth>
+            ),
+         },
+
+         {
+            path: '/community',
+            element: (
+               <RequireAuth>
+                  <Community />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/community/:id',
+            element: (
+               <RequireAuth>
+                  <CommunityDetail />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/community/write',
+            element: (
+               <RequireAuth>
+                  <CommunityWrite />
+               </RequireAuth>
+            ),
+         },
+
+         {
+            path: '/cooperate',
+            element: (
+               <RequireAuth>
+                  <Cooperate />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/cooperate/:id',
+            element: (
+               <RequireAuth>
+                  <CooperateDetail />
+               </RequireAuth>
+            ),
+         },
+         {
+            path: '/cooperate/write',
+            element: (
+               <RequireAuth>
+                  <CooperateWrite />
+               </RequireAuth>
+            ),
+         },
       ],
    },
-   {
-      path: '/login',
-      element: <Login />, // Header 없이 렌더링됨
-   },
+   { path: '/login', element: <Login /> },
    { path: '/api/oauth2/callback/kakao', element: <KakaoRedirection /> },
 ]);
