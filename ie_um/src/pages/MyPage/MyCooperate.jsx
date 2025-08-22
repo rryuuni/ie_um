@@ -42,13 +42,13 @@ const MyCooperate = () => {
                   <S.CardWrap>
                      <div>
                         <S.CardTitle>{item.title}</S.CardTitle>
-                        <S.CardDate>{item.date}</S.CardDate>
-                        <S.CardPlace>{item.place}</S.CardPlace>
+                        <S.CardDate>{item.time}</S.CardDate>
+                        <S.CardPlace>{item.address}</S.CardPlace>
                      </div>
                      <S.BtnWrap>
                         <S.CardCapacity>모집인원</S.CardCapacity>
                         <S.CardBtn>
-                           {item.people} / {item.capacity}
+                           {item.currentPersonnel} / {item.maxPersonnel}
                         </S.CardBtn>
                      </S.BtnWrap>
                   </S.CardWrap>
