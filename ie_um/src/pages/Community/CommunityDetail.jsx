@@ -29,6 +29,7 @@ const CommunityDetail = () => {
    const [likeBusy, setLikeBusy] = useState(false);
 
    const myId = Number(localStorage.getItem('memberId'));
+   const MODAL_ID = 'edit_modal';
 
    const toLocal = (s) => {
       if (!s) return '';
@@ -129,13 +130,11 @@ const CommunityDetail = () => {
    return (
       <S.Container>
          <EditModal
-            onclose={() => closeModal('Cooperate_edit_modal')}
+            modalId={MODAL_ID}
+            onclose={() => closeModal('edit_modal')}
             id={post.id}
             onEdit={() => navigate(`/community/edit/${post.id}`)}
             onDelete={onDelete}
-            onclose={() => closeModal('edit_modal')}
-            id={data.id}
-            editTo={`/community/edit/${data.id}`}
          />
          <S.Inform>
             <S.ProfileImage>
@@ -157,13 +156,10 @@ const CommunityDetail = () => {
                <S.Date>{displayDate}</S.Date>
             </S.WriteData>
             {isOwner && (
-               <S.MoreButton onClick={() => openModal('Cooperate_edit_modal')}>
+               <S.MoreButton onClick={() => openModal(MODAL_ID)}>
                   <RiMore2Fill size={20} color="#555" />
                </S.MoreButton>
             )}
-            <S.MoreButton onClick={() => openModal('edit_modal')}>
-               <RiMore2Fill size={20} color="#555" />
-            </S.MoreButton>
          </S.Inform>
 
          <S.LocationWrap>
