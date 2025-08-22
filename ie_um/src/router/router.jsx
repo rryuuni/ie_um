@@ -85,12 +85,9 @@ export const router = createBrowserRouter([
          { path: '/mypage/posts', element: <MyPosts /> },
          { path: '/mypage/likes', element: <MyLikes /> },
          { path: '/mypage/scraps-location', element: <MyScraps /> },
-<<<<<<< HEAD
-=======
          { path: '/mypage/my-cooperate', element: <MyCooperate /> },
          { path: '/mypage/applied-cooperate', element: <AppliedCooperate /> },
          { path: '/community', element: <Community /> },
->>>>>>> 56244ea2190b137bb5dccdaf158222479f9deeb7
          { path: '/community/:id', element: <CommunityDetail /> },
          { path: '/community/write', element: <CommunityWrite /> },
          { path: '/community/edit/:id', element: <CommunityWrite /> },
