@@ -1,23 +1,62 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import * as S from './Style/CommunityStyle';
 import * as P from '../../styles/PostStyle';
-import { RiHeart3Line, RiSearchLine } from 'react-icons/ri';
+import { RiHeart3Line, RiSearchLine, RiHeart3Fill } from 'react-icons/ri';
 import MyPagination from '../../components/Pagination';
-import { DummyCommunity } from '../../constants/DummyData';
+import { fetchCommunities } from '../../api/community';
 
-const Community = ({ community = DummyCommunity }) => {
+const Community = () => {
    const navigate = useNavigate();
+
+   // 서버 데이터
+   const [list, setList] = useState([]);
+   const [loading, setLoading] = useState(false);
+
+   // 검색어 & 페이지
+   const [query, setQuery] = useState('');
    const [activePage, setActivePage] = useState(1);
 
+   // 제목 검색
+   const filtered = useMemo(() => {
+      const q = query.trim().toLowerCase();
+      if (!q) return list;
+      return list.filter((it) => (it.title || '').toLowerCase().includes(q));
+   }, [list, query]);
+
+   // 페이지네이션
    const itemsPerPage = 7;
-   const LastItem = activePage * itemsPerPage;
-   const FirstItem = LastItem - itemsPerPage;
-   const currentItems = community.slice(FirstItem, LastItem);
+   const last = activePage * itemsPerPage;
+   const first = last - itemsPerPage;
+   const currentItems = filtered.slice(first, last);
 
    const handlePageChange = (pageNumber) => {
       setActivePage(pageNumber);
    };
+
+   // 최초 로드
+   useEffect(() => {
+      (async () => {
+         try {
+            setLoading(true);
+            const data = await fetchCommunities();
+            setList(Array.isArray(data) ? [...data].reverse() : []);
+         } catch (e) {
+            console.error(e);
+            alert('커뮤니티 목록을 불러오지 못했어요.');
+         } finally {
+            setLoading(false);
+         }
+      })();
+   }, []);
+
+   // 날짜 포맷
+   const fmtDate = (s) => {
+      if (!s) return '';
+      const d = new Date(s);
+      return isNaN(d.getTime()) ? s : d.toLocaleDateString();
+   };
+
    return (
       <P.Container>
          <P.Title>커뮤니티</P.Title>
@@ -26,28 +65,67 @@ const Community = ({ community = DummyCommunity }) => {
                id="search-title"
                type="text"
                placeholder="제목으로 검색하기"
+               value={query}
+               onChange={(e) => {
+                  setQuery(e.target.value);
+                  setActivePage(1);
+               }}
             ></S.Search>
             <S.SearchIcon>
                <RiSearchLine color="white" />
             </S.SearchIcon>
          </S.SearchWrap>
          <P.List>
-            {currentItems.map((item) => (
-               <li key={item.id}>
-                  <P.PostLink to={`/community/${item.id}`}>
-                     <div>
-                        <P.PostTitle>{item.title}</P.PostTitle>
-                        <P.PostDate>{item.date}</P.PostDate>
-                     </div>
-
-                     <P.HeartWrap>
-                        <RiHeart3Line size={11} />
-                        <P.HeartCount>{item.heart}</P.HeartCount>
-                     </P.HeartWrap>
-                  </P.PostLink>
-                  <P.Divider />
+            {loading ? (
+               <li
+                  style={{
+                     padding: 16,
+                     display: 'flex',
+                     alignItems: 'center',
+                     justifyContent: 'center',
+                     height: '150px',
+                  }}
+               >
+                  불러오는 중…
                </li>
-            ))}
+            ) : (
+               currentItems.map((item, idx) => {
+                  const id = item.id;
+                  const created = fmtDate(item.createDate);
+                  const heart = item.likeCount ?? 0;
+                  const node = (
+                     <div
+                        style={{
+                           display: 'flex',
+                           justifyContent: 'space-between',
+                           width: '100%',
+                        }}
+                     >
+                        <div>
+                           <P.PostTitle>{item.title}</P.PostTitle>
+                           <P.PostDate>{created}</P.PostDate>
+                        </div>
+                        <P.HeartWrap>
+                           <RiHeart3Line size={11} />
+                           <P.HeartCount>{heart}</P.HeartCount>
+                        </P.HeartWrap>
+                     </div>
+                  );
+
+                  return (
+                     <li key={id ?? `row-${first + idx}`}>
+                        {id ? (
+                           <P.PostLink to={`/community/${id}`}>
+                              {node}
+                           </P.PostLink>
+                        ) : (
+                           <div style={{ padding: '12px 0' }}>{node}</div>
+                        )}
+                        <P.Divider />
+                     </li>
+                  );
+               })
+            )}
          </P.List>
          <S.ButtonWrap>
             <S.WriteButton onClick={() => navigate('/community/write')}>
@@ -57,7 +135,7 @@ const Community = ({ community = DummyCommunity }) => {
          <MyPagination
             activePage={activePage}
             itemsCountPerPage={itemsPerPage}
-            totalItemsCount={community.length}
+            totalItemsCount={filtered.length}
             pageRangeDisplayed={itemsPerPage}
             onChange={handlePageChange}
          />

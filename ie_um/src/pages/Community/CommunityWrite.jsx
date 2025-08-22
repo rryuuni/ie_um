@@ -3,7 +3,11 @@ import * as S from './Style/CommunityWriteStyle';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { DummyCommunity } from '../../constants/DummyData';
+import {
+   createCommunity,
+   updateCommunity,
+   getCommunity,
+} from '../../api/community';
 
 const CommunityWrite = () => {
    const navigate = useNavigate();
@@ -11,28 +15,57 @@ const CommunityWrite = () => {
    const isEdit = Boolean(id);
 
    const [title, setTitle] = useState('');
-   const [location, setLocation] = useState('');
+   const [address, setAddress] = useState('');
    const [content, setContent] = useState('');
 
    // 수정 모드
    useEffect(() => {
-      if (isEdit) {
-         const post = DummyCommunity.find((item) => String(item.id) === id);
-         if (post) {
-            setTitle(post.title);
-            setLocation(post.location);
-            setContent(post.content);
+      if (!isEdit) return;
+      (async () => {
+         try {
+            const post = await getCommunity(id);
+            setTitle(post?.title ?? '');
+            setAddress(post?.address ?? '');
+            setContent(post?.content ?? '');
+         } catch (e) {
+            console.error(e);
+            alert('게시글 정보를 불러오지 못했어요.');
+            navigate('/community');
          }
-      }
-   }, [id, isEdit]);
+      })();
+   }, [isEdit, id, navigate]);
 
-   const handleSubmit = () => {
-      if (isEdit) {
-         console.log('수정된 데이터: ', { title, location, content });
-      } else {
-         console.log('새 글 데이터: ', { title, location, content });
+   // 유효성
+   const canSubmit = title.trim() && address.trim() && content.trim();
+
+   // 게시글 등록
+   const handleSubmit = async () => {
+      if (!canSubmit) {
+         alert('제목/장소/내용을 모두 입력해주세요.');
+         return;
       }
-      navigate('/community');
+      try {
+         if (isEdit) {
+            await updateCommunity({
+               id,
+               title: title.trim(),
+               content: content.trim(),
+               address: address.trim(),
+            });
+            alert('수정되었습니다.');
+         } else {
+            await createCommunity({
+               title: title.trim(),
+               content: content.trim(),
+               address: address.trim(),
+            });
+         }
+         alert(isEdit ? '수정되었습니다.' : '작성되었습니다.');
+         navigate('/community');
+      } catch (e) {
+         console.error(e);
+         alert(isEdit ? '수정에 실패했습니다.' : '작성에 실패했습니다.');
+      }
    };
 
    return (
@@ -51,9 +84,9 @@ const CommunityWrite = () => {
                </S.PinIcon>
                <S.LocationInput
                   type="text"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  placeholder="장소를 검색하세요."
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="장소를 입력하세요."
                />
             </S.LocationWrap>
             <S.ContentInput
