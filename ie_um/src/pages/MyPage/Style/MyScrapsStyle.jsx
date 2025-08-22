@@ -17,6 +17,7 @@ export const Item = styled.div`
    margin-top: 10px;
    padding: 14px 16px;
    border-bottom: 1px solid #eee;
+   cursor: pointer;
 `;
 
 export const IconWrap = styled.div`

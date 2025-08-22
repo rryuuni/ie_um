@@ -12,6 +12,8 @@ import MyPosts from '../pages/MyPage/MyPosts';
 import MyLikes from '../pages/MyPage/MyLikes';
 import MyScraps from '../pages/MyPage/MyScraps';
 import EditProfile from '../pages/MyPage/EditProfile';
+import MyCooperate from '../pages/MyPage/MyCooperate';
+import AppliedCooperate from '../pages/MyPage/AppliedCooperate';
 
 //커뮤니티
 import Community from '../pages/Community/Community';
@@ -75,16 +77,23 @@ export const router = createBrowserRouter([
          { path: '/cooperate', element: <Cooperate /> },
          { path: '/cooperate/:id', element: <CooperateDetail /> },
          { path: '/cooperate/write', element: <CooperateWrite /> },
-         { path: '/mypage', element: <MyPage /> },
          { path: '/hashtag', element: <MainTag /> },
          { path: '/ai/result', element: <MainResult /> },
          { path: '/ai/result/:id', element: <MainResultDetail /> },
+         { path: '/mypage', element: <MyPage /> },
          { path: '/mypage/edit-profile', element: <EditProfile /> },
          { path: '/mypage/posts', element: <MyPosts /> },
          { path: '/mypage/likes', element: <MyLikes /> },
          { path: '/mypage/scraps-location', element: <MyScraps /> },
+<<<<<<< HEAD
+=======
+         { path: '/mypage/my-cooperate', element: <MyCooperate /> },
+         { path: '/mypage/applied-cooperate', element: <AppliedCooperate /> },
+         { path: '/community', element: <Community /> },
+>>>>>>> 56244ea2190b137bb5dccdaf158222479f9deeb7
          { path: '/community/:id', element: <CommunityDetail /> },
          { path: '/community/write', element: <CommunityWrite /> },
+         { path: '/community/edit/:id', element: <CommunityWrite /> },
       ],
    },
 ]);
