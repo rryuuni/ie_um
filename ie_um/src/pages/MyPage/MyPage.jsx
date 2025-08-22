@@ -59,7 +59,18 @@ const MyPage = () => {
                   {index < menuList.length && <S.Divider />}
                </div>
             ))}
-            <S.MenuItem>로그아웃</S.MenuItem>
+            <S.MenuItem
+               onClick={() => {
+                  localStorage.removeItem('accessToken');
+                  localStorage.removeItem('memberId');
+                  localStorage.removeItem('oauthName');
+                  localStorage.removeItem('profileImg');
+                  alert('로그아웃 되었습니다.');
+                  navigate('/login');
+               }}
+            >
+               로그아웃
+            </S.MenuItem>
          </S.MenuWrap>
       </S.Container>
    );

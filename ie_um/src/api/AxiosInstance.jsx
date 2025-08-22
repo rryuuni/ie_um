@@ -24,12 +24,11 @@ axiosInstance.interceptors.response.use(
    (err) => {
       if (err?.response?.status === 401) {
          localStorage.removeItem('accessToken');
-         if (
-            typeof window !== 'undefined' &&
-            window.location.pathname !== '/login'
-         ) {
+         localStorage.removeItem('memberId');
+         localStorage.removeItem('oauthName');
+         localStorage.removeItem('profileImg');
+         if (typeof window !== 'undefined') {
             window.location.href = '/login';
-            return;
          }
       }
       return Promise.reject(err);
