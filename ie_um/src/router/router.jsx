@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
-//메인
+import RequireAuth from './RequireAuth';
+
 import MainPage from '../pages/MainPage/MainPage';
 import MainTag from '../pages/MainPage/MainTag';
 import MainResult from '../pages/MainPage/MainResult';
@@ -27,10 +28,47 @@ import Login from '../pages/Login/Login';
 import Layout from '../components/Layout';
 import KakaoRedirection from '../pages/Login/KakaoRedirection';
 
+// export const router = createBrowserRouter([
+//    {
+//       path: '/',
+//       element: <Layout />,
+//       children: [
+//          { path: '/', element: <MainPage /> },
+//          { path: '/community', element: <Community /> },
+//          { path: '/cooperate', element: <Cooperate /> },
+//          { path: '/cooperate/:id', element: <CooperateDetail /> },
+//          { path: '/cooperate/write', element: <CooperateWrite /> },
+//          { path: '/mypage', element: <MyPage /> },
+//          { path: '/hashtag', element: <MainTag /> },
+//          { path: '/ai/result', element: <MainResult /> },
+//          { path: '/ai/result/:id', element: <MainResultDetail /> },
+//          { path: '/mypage/edit-profile', element: <EditProfile /> },
+//          { path: '/mypage/posts', element: <MyPosts /> },
+//          { path: '/mypage/likes', element: <MyLikes /> },
+//          { path: '/mypage/scraps-location', element: <MyScraps /> },
+//          { path: '/community', element: <Community /> },
+//          { path: '/community/:id', element: <CommunityDetail /> },
+//          { path: '/community/write', element: <CommunityWrite /> },
+//       ],
+//    },
+//    {
+//       path: '/login',
+//       element: <Login />, // Header 없이 렌더링됨
+//    },
+//    { path: '/api/oauth2/callback/kakao', element: <KakaoRedirection /> },
+// ]);
+
 export const router = createBrowserRouter([
+   { path: '/login', element: <Login /> },
+   { path: '/api/oauth2/callback/kakao', element: <KakaoRedirection /> },
+
    {
       path: '/',
-      element: <Layout />,
+      element: (
+         <RequireAuth>
+            <Layout />
+         </RequireAuth>
+      ),
       children: [
          { path: '/', element: <MainPage /> },
          { path: '/community', element: <Community /> },
@@ -45,14 +83,8 @@ export const router = createBrowserRouter([
          { path: '/mypage/posts', element: <MyPosts /> },
          { path: '/mypage/likes', element: <MyLikes /> },
          { path: '/mypage/scraps-location', element: <MyScraps /> },
-         { path: '/community', element: <Community /> },
          { path: '/community/:id', element: <CommunityDetail /> },
          { path: '/community/write', element: <CommunityWrite /> },
       ],
    },
-   {
-      path: '/login',
-      element: <Login />, // Header 없이 렌더링됨
-   },
-   { path: '/api/oauth2/callback/kakao', element: <KakaoRedirection /> },
 ]);
