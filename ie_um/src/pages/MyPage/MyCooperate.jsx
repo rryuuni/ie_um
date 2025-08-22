@@ -1,24 +1,36 @@
 import * as S from '../Cooperate/Style/CooperateStyle';
-import { DummyCooperate } from '../../constants/DummyData';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MyPagination from '../../components/Pagination';
 import { RiMore2Fill } from 'react-icons/ri';
 import useModal from '../../hooks/useModal';
 import DeleteModal from '../../components/Modal/DeleteModal';
+import axiosInstance from '../../api/AxiosInstance';
 
-const MyCooperate = ({ cooperate = DummyCooperate }) => {
+const MyCooperate = () => {
    const [activePage, setActivePage] = useState(1);
    const { openModal, closeModal } = useModal();
-
+   const [data, setData] = useState([]);
    const itemsPerPage = 4;
    const LastItem = activePage * itemsPerPage;
    const FirstItem = LastItem - itemsPerPage;
-   const currentItems = cooperate.slice(FirstItem, LastItem);
+   const currentItems = (data ?? []).slice(FirstItem, LastItem);
 
    const handlePageChange = (pageNumber) => {
       setActivePage(pageNumber);
    };
+
+   useEffect(() => {
+      axiosInstance
+         .get(`/api/accompanies/member`)
+         .then((r) => {
+            setData(r.data.data.accompanyInfoResDtos);
+         })
+
+         .catch((err) => {
+            alert('불러오기 실패');
+            console.error(err);
+         });
+   }, []);
 
    return (
       <S.Wrap>
@@ -30,13 +42,13 @@ const MyCooperate = ({ cooperate = DummyCooperate }) => {
                   <S.CardWrap>
                      <div>
                         <S.CardTitle>{item.title}</S.CardTitle>
-                        <S.CardDate>{item.date}</S.CardDate>
-                        <S.CardPlace>{item.place}</S.CardPlace>
+                        <S.CardDate>{item.time}</S.CardDate>
+                        <S.CardPlace>{item.address}</S.CardPlace>
                      </div>
                      <S.BtnWrap>
                         <S.CardCapacity>모집인원</S.CardCapacity>
                         <S.CardBtn>
-                           {item.people} / {item.capacity}
+                           {item.currentPersonnel} / {item.maxPersonnel}
                         </S.CardBtn>
                      </S.BtnWrap>
                   </S.CardWrap>
@@ -50,7 +62,7 @@ const MyCooperate = ({ cooperate = DummyCooperate }) => {
          <MyPagination
             activePage={activePage}
             itemsCountPerPage={itemsPerPage}
-            totalItemsCount={cooperate.length}
+            totalItemsCount={data?.length ?? 0}
             pageRangeDisplayed={itemsPerPage}
             onChange={handlePageChange}
          />
