@@ -43,15 +43,16 @@ const KakaoRedirection = () => {
 
             // 사용자 정보 불러오기
             const me = await axiosInstance.get('/api/members');
-            const { id, name, nickName } = me.data.data;
+            const { id, name, nickName, profileImg } = me.data.data;
 
-            // 사용자 정보 저장(아이디/이름)
+            // 사용자 정보 저장(아이디/이름/프로필 사진)
             localStorage.setItem('memberId', String(id));
             localStorage.setItem('oauthName', name ?? nickName ?? '');
+            localStorage.setItem('profileImg', profileImg ?? '');
 
-            console.log('로그인 성공');
-            console.log('memberId:', id);
-            console.log('name:', name ?? nickName ?? '');
+            // console.log('로그인 성공');
+            // console.log('memberId:', id);
+            // console.log('name:', name ?? nickName ?? '');
 
             navigate('/');
          } catch (err) {
