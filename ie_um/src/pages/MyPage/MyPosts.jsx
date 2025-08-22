@@ -1,52 +1,178 @@
+// import { RiHeart3Line } from 'react-icons/ri';
+// import * as S from '../../styles/PostStyle';
+// import { useState } from 'react';
+// import MyPagination from '../../components/Pagination';
+// import { DummyCommunity } from '../../constants/DummyData';
+
+// const MyPosts = ({ posts = DummyCommunity }) => {
+//    const [activePage, setActivePage] = useState(1);
+
+//    const itemsPerPage = 7;
+//    const LastItem = activePage * itemsPerPage;
+//    const FirstItem = LastItem - itemsPerPage;
+//    const currentItems = posts.slice(FirstItem, LastItem);
+
+//    const handlePageChange = (pageNumber) => {
+//       setActivePage(pageNumber);
+//    };
+
+//    return (
+//       <S.Container>
+//          <S.Title>내가 쓴 글</S.Title>
+
+//          <S.List>
+//             {currentItems.map((item) => (
+//                <li key={item.id}>
+//                   <S.PostLink to={`/community/${item.id}`}>
+//                      <div>
+//                         <S.PostTitle>{item.title}</S.PostTitle>
+//                         <S.PostDate>{item.date}</S.PostDate>
+//                      </div>
+
+//                      <S.HeartWrap>
+//                         <RiHeart3Line size={11} />
+//                         <S.HeartCount>{item.heart}</S.HeartCount>
+//                      </S.HeartWrap>
+//                   </S.PostLink>
+//                   <S.Divider />
+//                </li>
+//             ))}
+//          </S.List>
+
+//          <MyPagination
+//             activePage={activePage}
+//             itemsCountPerPage={itemsPerPage}
+//             totalItemsCount={posts.length}
+//             pageRangeDisplayed={itemsPerPage}
+//             onChange={handlePageChange}
+//          />
+//       </S.Container>
+//    );
+// };
+
+// export default MyPosts;
+
+import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import * as P from '../../styles/PostStyle';
 import { RiHeart3Line } from 'react-icons/ri';
-import * as S from '../../styles/PostStyle';
-import { useState } from 'react';
 import MyPagination from '../../components/Pagination';
-import { DummyCommunity } from '../../constants/DummyData';
+import { fetchMyCommunities } from '../../api/community';
 
-const MyPosts = ({ posts = DummyCommunity }) => {
-   const [activePage, setActivePage] = useState(1);
+const MyPosts = () => {
+   const [list, setList] = useState([]);
+   const [loading, setLoading] = useState(false);
 
-   const itemsPerPage = 7;
-   const LastItem = activePage * itemsPerPage;
-   const FirstItem = LastItem - itemsPerPage;
-   const currentItems = posts.slice(FirstItem, LastItem);
+   useEffect(() => {
+      (async () => {
+         try {
+            setLoading(true);
+            const rows = await fetchMyCommunities();
+            setList(Array.isArray(rows) ? [...rows].reverse() : []);
+         } catch (e) {
+            console.error(e);
+            alert('내가 쓴 글을 불러오지 못했어요.');
+         } finally {
+            setLoading(false);
+         }
+      })();
+   }, []);
 
-   const handlePageChange = (pageNumber) => {
-      setActivePage(pageNumber);
+   const fmt = (s) => {
+      if (!s) return '';
+      const d = new Date(String(s).replace(' ', 'T'));
+      return d.toLocaleString([], {
+         year: 'numeric',
+         month: '2-digit',
+         day: '2-digit',
+         hour: '2-digit',
+         minute: '2-digit',
+         hour12: false,
+      });
    };
 
+   // 페이지네이션
+   const [activePage, setActivePage] = useState(1);
+   const itemsPerPage = 7;
+   const last = activePage * itemsPerPage;
+   const first = last - itemsPerPage;
+   const currentItems = useMemo(
+      () => list.slice(first, last),
+      [list, first, last],
+   );
+
    return (
-      <S.Container>
-         <S.Title>내가 쓴 글</S.Title>
+      <P.Container>
+         <P.Title>내가 쓴 글</P.Title>
 
-         <S.List>
-            {currentItems.map((item) => (
-               <li key={item.id}>
-                  <S.PostLink to={`/community/${item.id}`}>
-                     <div>
-                        <S.PostTitle>{item.title}</S.PostTitle>
-                        <S.PostDate>{item.date}</S.PostDate>
-                     </div>
-
-                     <S.HeartWrap>
-                        <RiHeart3Line size={11} />
-                        <S.HeartCount>{item.heart}</S.HeartCount>
-                     </S.HeartWrap>
-                  </S.PostLink>
-                  <S.Divider />
+         <P.List>
+            {loading ? (
+               <li
+                  style={{
+                     padding: 16,
+                     display: 'flex',
+                     height: 150,
+                     alignItems: 'center',
+                     justifyContent: 'center',
+                  }}
+               >
+                  불러오는 중…
                </li>
-            ))}
-         </S.List>
+            ) : currentItems.length === 0 ? (
+               <li
+                  style={{
+                     padding: 16,
+                     display: 'flex',
+                     height: 150,
+                     alignItems: 'center',
+                     justifyContent: 'center',
+                  }}
+               >
+                  작성한 글이 없어요.
+               </li>
+            ) : (
+               currentItems.map((item) => {
+                  const id = item.id ?? item.communityId;
+                  return (
+                     <li key={id}>
+                        <Link
+                           to={`/community/${id}`}
+                           style={{ textDecoration: 'none', color: 'inherit' }}
+                        >
+                           <div
+                              style={{
+                                 display: 'flex',
+                                 justifyContent: 'space-between',
+                                 width: '100%',
+                              }}
+                           >
+                              <div>
+                                 <P.PostTitle>{item.title}</P.PostTitle>
+                                 <P.PostDate>{fmt(item.createDate)}</P.PostDate>
+                              </div>
+                              <P.HeartWrap>
+                                 <RiHeart3Line size={11} />
+                                 <P.HeartCount>
+                                    {item.likeCount ?? 0}
+                                 </P.HeartCount>
+                              </P.HeartWrap>
+                           </div>
+                        </Link>
+                        <P.Divider />
+                     </li>
+                  );
+               })
+            )}
+         </P.List>
 
          <MyPagination
             activePage={activePage}
             itemsCountPerPage={itemsPerPage}
-            totalItemsCount={posts.length}
+            totalItemsCount={list.length}
             pageRangeDisplayed={itemsPerPage}
-            onChange={handlePageChange}
+            onChange={(p) => setActivePage(p)}
          />
-      </S.Container>
+      </P.Container>
    );
 };
 
