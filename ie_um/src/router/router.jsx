@@ -10,7 +10,6 @@ import MainResultDetail from '../pages/MainPage/MainResultDetail';
 import MyPage from '../pages/MyPage/MyPage';
 import MyPosts from '../pages/MyPage/MyPosts';
 import MyLikes from '../pages/MyPage/MyLikes';
-import MyScraps from '../pages/MyPage/MyScraps';
 import EditProfile from '../pages/MyPage/EditProfile';
 import MyCooperate from '../pages/MyPage/MyCooperate';
 import AppliedCooperate from '../pages/MyPage/AppliedCooperate';
@@ -97,14 +96,6 @@ export const router = createBrowserRouter([
             element: (
                <RequireAuth>
                   <MyLikes />
-               </RequireAuth>
-            ),
-         },
-         {
-            path: '/mypage/scraps-location',
-            element: (
-               <RequireAuth>
-                  <MyScraps />
                </RequireAuth>
             ),
          },

@@ -67,7 +67,6 @@ const MyPage = () => {
    const menuList = [
       { name: '내가 쓴 글', path: '/mypage/posts' },
       { name: '좋아요한 글', path: '/mypage/likes' },
-      { name: '저장한 장소', path: '/mypage/scraps-location' },
       { name: '나의 동행 그룹', path: '/mypage/my-cooperate' },
       { name: '신청한 동행 그룹', path: '/mypage/applied-cooperate' },
    ];
