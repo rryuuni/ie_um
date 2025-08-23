@@ -56,3 +56,14 @@ export async function fetchMyCommunities() {
   const { data } = await axiosInstance.get('/api/communities/member');
   return data?.data?.communityInfoResDtos ?? data?.communityInfoResDtos ?? [];
 }
+
+// 좋아요한 글
+export async function fetchMyLikedCommunities() {
+  const { data } = await axiosInstance.get('/api/communities/likes');
+  return (
+    data?.data?.communityInfoResDtos ??
+    data?.communityInfoResDtos ??
+    data ??
+    []
+  );
+}

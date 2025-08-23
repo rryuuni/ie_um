@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import * as P from '../../styles/PostStyle';
+import * as S from '../../styles/PostStyle';
 import { RiHeart3Line } from 'react-icons/ri';
 import MyPagination from '../../components/Pagination';
 import { fetchMyCommunities } from '../../api/community';
@@ -49,10 +49,9 @@ const MyPosts = () => {
    );
 
    return (
-      <P.Container>
-         <P.Title>내가 쓴 글</P.Title>
-
-         <P.List>
+      <S.Container>
+         <S.Title>내가 쓴 글</S.Title>
+         <S.List>
             {loading ? (
                <li
                   style={{
@@ -94,23 +93,23 @@ const MyPosts = () => {
                               }}
                            >
                               <div>
-                                 <P.PostTitle>{item.title}</P.PostTitle>
-                                 <P.PostDate>{fmt(item.createDate)}</P.PostDate>
+                                 <S.PostTitle>{item.title}</S.PostTitle>
+                                 <S.PostDate>{fmt(item.createDate)}</S.PostDate>
                               </div>
-                              <P.HeartWrap>
+                              <S.HeartWrap>
                                  <RiHeart3Line size={11} />
-                                 <P.HeartCount>
+                                 <S.HeartCount>
                                     {item.likeCount ?? 0}
-                                 </P.HeartCount>
-                              </P.HeartWrap>
+                                 </S.HeartCount>
+                              </S.HeartWrap>
                            </div>
                         </Link>
-                        <P.Divider />
+                        <S.Divider />
                      </li>
                   );
                })
             )}
-         </P.List>
+         </S.List>
 
          <MyPagination
             activePage={activePage}
@@ -119,7 +118,7 @@ const MyPosts = () => {
             pageRangeDisplayed={itemsPerPage}
             onChange={(p) => setActivePage(p)}
          />
-      </P.Container>
+      </S.Container>
    );
 };
 

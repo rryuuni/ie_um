@@ -86,7 +86,7 @@ const CommunityDetail = () => {
             const data = await getCommunity(Number(id));
             setPost(data);
             setLikeCount(data?.likeCount ?? 0);
-            setLiked(Boolean(data?.myLike));
+            setLiked(Boolean(data?.isLike));
          } catch (e) {
             console.error(e);
             alert('게시글을 불러오지 못했습니다.');
