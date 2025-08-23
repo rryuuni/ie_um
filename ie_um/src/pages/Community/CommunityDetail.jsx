@@ -15,6 +15,7 @@ import {
    likeCommunity,
    unlikeCommunity,
 } from '../../api/community';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const CommunityDetail = () => {
    const { id } = useParams();
@@ -96,7 +97,7 @@ const CommunityDetail = () => {
       })();
    }, [id, navigate]);
 
-   // 생성자 변수
+   // 생성자
    const isOwner = post && Number(post.memberId) === myId;
 
    // 삭제 로직
@@ -115,7 +116,19 @@ const CommunityDetail = () => {
    };
 
    if (loading) {
-      return <div style={{ padding: 16 }}>불러오는 중</div>;
+      return (
+         <div
+            style={{
+               width: '100%',
+               height: '60vh',
+               display: 'flex',
+               alignItems: 'center',
+               justifyContent: 'center',
+            }}
+         >
+            <ClipLoader color="#004193" />
+         </div>
+      );
    }
    if (!post) {
       return <div style={{ padding: 16 }}>게시글을 불러오지 못했습니다.</div>;
@@ -131,7 +144,7 @@ const CommunityDetail = () => {
       <S.Container>
          <EditModal
             modalId={MODAL_ID}
-            onclose={() => closeModal('edit_modal')}
+            onClose={() => closeModal('edit_modal')}
             id={post.id}
             onEdit={() => navigate(`/community/edit/${post.id}`)}
             onDelete={onDelete}
