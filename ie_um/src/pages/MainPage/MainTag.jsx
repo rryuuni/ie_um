@@ -2,9 +2,11 @@ import * as S from './Style/MainTagStyle';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../api/AxiosInstance';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const MainTag = () => {
    const navigate = useNavigate();
+   const [loading, setLoading] = useState(false);
 
    const hashtagCategories = {
       장소: ['식당', '카페', '도서관', '복지', '병원', '약국', '공원', '학원'],
@@ -32,6 +34,7 @@ const MainTag = () => {
          alert('태그를 모두 선택하세요.');
          return;
       }
+      setLoading(true);
 
       axiosInstance
          .post('/api/resources', selectedTags)
@@ -45,6 +48,9 @@ const MainTag = () => {
          .catch((err) => {
             alert('AI 추천 요청 실패');
             console.error(err);
+         })
+         .finally(() => {
+            setLoading(false);
          });
    };
 
@@ -67,7 +73,14 @@ const MainTag = () => {
          ))}
 
          <S.BtnWrap>
-            <S.Btn onClick={handleClick}>AI 추천 시작하기</S.Btn>
+            {' '}
+            {loading ? (
+               <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <ClipLoader color="#004193" size={30} />
+               </div>
+            ) : (
+               <S.Btn onClick={handleClick}>AI 추천 시작하기</S.Btn>
+            )}
          </S.BtnWrap>
       </S.Wrap>
    );
