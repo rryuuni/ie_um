@@ -83,6 +83,7 @@ const MyPosts = () => {
                      <li key={id}>
                         <Link
                            to={`/community/${id}`}
+                           state={{ from: 'mypage/posts' }}
                            style={{ textDecoration: 'none', color: 'inherit' }}
                         >
                            <div

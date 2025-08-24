@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as S from './Style/CommunityStyle';
 import * as P from '../../styles/PostStyle';
-import { RiHeart3Line, RiSearchLine, RiHeart3Fill } from 'react-icons/ri';
+import { RiHeart3Line, RiSearchLine } from 'react-icons/ri';
 import MyPagination from '../../components/Pagination';
 import { fetchCommunities } from '../../api/community';
 import ClipLoader from 'react-spinners/ClipLoader';
@@ -115,7 +115,10 @@ const Community = () => {
                   return (
                      <li key={id ?? `row-${first + idx}`}>
                         {id ? (
-                           <P.PostLink to={`/community/${id}`}>
+                           <P.PostLink
+                              to={`/community/${id}`}
+                              state={{ from: 'community' }}
+                           >
                               {node}
                            </P.PostLink>
                         ) : (
