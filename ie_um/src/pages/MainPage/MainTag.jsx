@@ -34,10 +34,17 @@ const MainTag = () => {
          alert('태그를 모두 선택하세요.');
          return;
       }
+
+      const payload = {
+         place: selectedTags.장소,
+         mood: selectedTags.분위기,
+         purpose: selectedTags.목적,
+      };
+
       setLoading(true);
 
       axiosInstance
-         .post('/api/resources', selectedTags)
+         .post('/api/resources', payload)
          .then((res) => {
             console.log('AI 추천 결과:', res.data);
 
