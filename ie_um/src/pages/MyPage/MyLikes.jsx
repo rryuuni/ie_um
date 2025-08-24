@@ -50,7 +50,7 @@ const MyLikes = () => {
    return (
       <S.Container>
          <S.Title>좋아요한 글</S.Title>
-         <S.List>
+         <S.List style={{ minHeight: 550 }}>
             {loading ? (
                <li
                   style={{

@@ -48,7 +48,7 @@ const MyPosts = () => {
    return (
       <S.Container>
          <S.Title>내가 쓴 글</S.Title>
-         <S.List>
+         <S.List style={{ minHeight: 550 }}>
             {loading ? (
                <li
                   style={{
