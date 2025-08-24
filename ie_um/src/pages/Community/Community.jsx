@@ -5,6 +5,7 @@ import * as P from '../../styles/PostStyle';
 import { RiHeart3Line, RiSearchLine, RiHeart3Fill } from 'react-icons/ri';
 import MyPagination from '../../components/Pagination';
 import { fetchCommunities } from '../../api/community';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const Community = () => {
    const navigate = useNavigate();
@@ -79,14 +80,13 @@ const Community = () => {
             {loading ? (
                <li
                   style={{
-                     padding: 16,
                      display: 'flex',
                      alignItems: 'center',
                      justifyContent: 'center',
                      height: '150px',
                   }}
                >
-                  불러오는 중…
+                  <ClipLoader color="#004193" />
                </li>
             ) : (
                currentItems.map((item, idx) => {

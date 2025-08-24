@@ -52,7 +52,6 @@ const CommunityWrite = () => {
                content: content.trim(),
                address: address.trim(),
             });
-            alert('수정되었습니다.');
          } else {
             await createCommunity({
                title: title.trim(),

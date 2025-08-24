@@ -140,7 +140,14 @@ export const router = createBrowserRouter([
                </RequireAuth>
             ),
          },
-
+         {
+            path: '/community/edit/:id',
+            element: (
+               <RequireAuth>
+                  <CommunityWrite />
+               </RequireAuth>
+            ),
+         },
          {
             path: '/cooperate',
             element: (
