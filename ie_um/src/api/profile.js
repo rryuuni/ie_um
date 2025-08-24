@@ -1,4 +1,3 @@
-import api from "./client";
 import axiosInstance from "./AxiosInstance";
 
 // GET

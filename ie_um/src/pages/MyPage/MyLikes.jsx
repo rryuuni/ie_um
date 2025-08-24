@@ -1,9 +1,9 @@
-import { RiHeart3Fill } from 'react-icons/ri';
-import * as S from '../../styles/PostStyle';
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import MyPagination from '../../components/Pagination';
 import { fetchMyLikedCommunities } from '../../api/community';
+import { RiHeart3Fill } from 'react-icons/ri';
+import * as S from '../../styles/PostStyle';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const MyLikes = () => {

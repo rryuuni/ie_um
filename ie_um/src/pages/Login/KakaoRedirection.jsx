@@ -50,10 +50,6 @@ const KakaoRedirection = () => {
             localStorage.setItem('oauthName', name ?? nickName ?? '');
             localStorage.setItem('profileImg', profileImg ?? '');
 
-            // console.log('로그인 성공');
-            // console.log('memberId:', id);
-            // console.log('name:', name ?? nickName ?? '');
-
             navigate('/');
          } catch (err) {
             console.error(err);

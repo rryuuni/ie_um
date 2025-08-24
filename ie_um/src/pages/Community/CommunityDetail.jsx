@@ -1,12 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import * as S from './Style/CommunityDetailStyle';
-import {
-   RiMapPinFill,
-   RiHeart3Line,
-   RiMore2Fill,
-   RiHeart3Fill,
-} from 'react-icons/ri';
 import useModal from '../../hooks/useModal';
 import EditModal from '../../components/Modal/EditModal';
 import {
@@ -15,7 +8,14 @@ import {
    likeCommunity,
    unlikeCommunity,
 } from '../../api/community';
+import * as S from './Style/CommunityDetailStyle';
 import ClipLoader from 'react-spinners/ClipLoader';
+import {
+   RiMapPinFill,
+   RiHeart3Line,
+   RiMore2Fill,
+   RiHeart3Fill,
+} from 'react-icons/ri';
 
 const CommunityDetail = () => {
    const { id } = useParams();
