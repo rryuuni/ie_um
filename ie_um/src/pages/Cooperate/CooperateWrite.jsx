@@ -35,18 +35,29 @@ const CooperateWrite = () => {
       const { value, name } = e.target;
       setBoard({
          ...board,
-         [name]: value,
+         [name]: name === 'maxPersonnel' ? Number(value) : value,
       });
    };
 
    const saveBoard = async () => {
+      if (!title || !content || !maxPersonnel || !time || !address) {
+         alert('모든 항목을 입력해주세요.');
+         return;
+      }
+
       try {
+         const payload = {
+            ...board,
+
+            time: board.time ? board.time.replace('T', ' ') : '',
+         };
+
          if (isEdit) {
-            await axiosInstance.put(`/api/accompanies/${id}`, board);
+            await axiosInstance.put(`/api/accompanies/${id}`, payload);
             alert('수정되었습니다.');
             navigate(`/cooperate/${id}`);
          } else {
-            await axiosInstance.post(`/api/accompanies`, board);
+            await axiosInstance.post(`/api/accompanies`, payload);
             alert('등록되었습니다.');
             navigate('/cooperate');
          }
