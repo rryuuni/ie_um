@@ -29,7 +29,7 @@ export const CreateBtn = styled.button`
 
 export const CardList = styled.div`
    width: 100%;
-   min-height: 500px; /* 카드 영역 최소 높이 확보 */
+   min-height: 550px; /* 카드 영역 최소 높이 확보 */
    display: flex;
    flex-direction: column;
    justify-content: flex-start;
@@ -83,7 +83,20 @@ export const CardBtn = styled.button`
    color: white;
    font-size: 12px;
    font-weight: 600;
-   background-color: ${(props) => props.theme.mainColorLight};
+   background-color: ${(props) => {
+      switch (props.role) {
+         case 'PENDING':
+            return '#b4b4b4'; // 대기중
+         case 'ACCEPTED':
+            return '#004193'; // 수락됨 (기본)
+         case 'REJECTED':
+            return '#ba5c65'; // 거절됨
+         case 'LEAVE':
+            return '#3e2f2f'; // 탈퇴함 (원하면)
+         default:
+            return '#0086D1'; // 신청하기 기본 색
+      }
+   }};
 `;
 
 export const BtnWrap = styled.div`
@@ -97,24 +110,6 @@ export const BtnWrap = styled.div`
 export const StyledLink = styled(Link)`
    text-decoration: none;
    color: black;
-`;
-
-// 마이페이지 동행그룹 스타일 컴포넌트
-export const StateBtn = styled.button`
-   width: 62px;
-   height: 26px;
-   border-radius: 10px;
-   margin-top: 3px;
-   color: white;
-   font-size: 12px;
-   font-weight: 600;
-
-   background: ${({ $status, theme }) =>
-      $status === 'rejected'
-         ? '#BA5C65'
-         : $status === 'pending'
-           ? '#B4B4B4'
-           : theme.mainColorLight}; /* accepted */
 `;
 
 export const MoreButton = styled.button`

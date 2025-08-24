@@ -1,15 +1,13 @@
 import * as S from './EditModalStyle';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../api/AxiosInstance';
-import { useParams } from 'react-router-dom';
 
-const CooperateEditModal = ({ onclose, editTo }) => {
-   const { id } = useParams();
+const CooperateEditModal = ({ onclose, editTo, id }) => {
    const navigate = useNavigate();
 
    const handleEdit = () => {
       if (editTo) navigate(editTo);
-      onclose?.();
+      onclose();
    };
 
    const deletePost = async () => {

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import MyPagination from '../../components/Pagination';
 import { RiMore2Fill } from 'react-icons/ri';
 import useModal from '../../hooks/useModal';
-import DeleteModal from '../../components/Modal/DeleteModal';
+import CooperateEditModal from '../../components/Modal/CooperateEditModal';
 import axiosInstance from '../../api/AxiosInstance';
 
 const MyCooperate = () => {
@@ -35,29 +35,38 @@ const MyCooperate = () => {
    return (
       <S.Wrap>
          <S.Title>나의 동행그룹</S.Title>
-         {currentItems.map((item) => (
-            <S.Card key={item.id}>
-               <DeleteModal onclose={() => closeModal('Delete_modal')} />
-               <S.StyledLink to={`/cooperate/${item.id}`}>
-                  <S.CardWrap>
-                     <div>
-                        <S.CardTitle>{item.title}</S.CardTitle>
-                        <S.CardDate>{item.time}</S.CardDate>
-                        <S.CardPlace>{item.address}</S.CardPlace>
-                     </div>
-                     <S.BtnWrap>
-                        <S.CardCapacity>모집인원</S.CardCapacity>
-                        <S.CardBtn>
-                           {item.currentPersonnel} / {item.maxPersonnel}
-                        </S.CardBtn>
-                     </S.BtnWrap>
-                  </S.CardWrap>
-               </S.StyledLink>
-               <S.MoreButton onClick={() => openModal('Delete_modal')}>
-                  <RiMore2Fill size={20} color="#555" />
-               </S.MoreButton>
-            </S.Card>
-         ))}
+         <S.CardList>
+            {currentItems.map((item) => (
+               <S.Card key={item.id}>
+                  <CooperateEditModal
+                     onclose={() => closeModal('Cooperate_edit_modal')}
+                     editTo={`/cooperate/edit/${item.id}`}
+                     id={item.id}
+                  />
+                  <S.StyledLink to={`/cooperate/${item.id}`}>
+                     <S.CardWrap>
+                        <div>
+                           <S.CardTitle>{item.title}</S.CardTitle>
+                           <S.CardDate>{item.time}</S.CardDate>
+                           <S.CardPlace>{item.address}</S.CardPlace>
+                        </div>
+                        <S.BtnWrap>
+                           <S.CardCapacity>모집인원</S.CardCapacity>
+                           <S.CardBtn>
+                              {item.currentPersonnel} / {item.maxPersonnel}
+                           </S.CardBtn>
+                        </S.BtnWrap>
+                     </S.CardWrap>
+                  </S.StyledLink>
+                  <S.MoreButton
+                     onClick={() => openModal('Cooperate_edit_modal')}
+                     $editTo={`/cooperate/edit/${item.id}`}
+                  >
+                     <RiMore2Fill size={20} color="#555" />
+                  </S.MoreButton>
+               </S.Card>
+            ))}
+         </S.CardList>
 
          <MyPagination
             activePage={activePage}

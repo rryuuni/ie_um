@@ -5,12 +5,14 @@ import useModal from '../../hooks/useModal';
 import CooperateEditModal from '../../components/Modal/CooperateEditModal';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../api/AxiosInstance';
+import ApplyMember from './ApplyMember';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const CooperateDetail = () => {
    const { id } = useParams();
    const { openModal, closeModal } = useModal();
    const [data, setData] = useState({});
-   const isEdit = Boolean(id);
+   const [loading, setLoading] = useState(true);
 
    useEffect(() => {
       axiosInstance
@@ -22,8 +24,11 @@ const CooperateDetail = () => {
          .catch((err) => {
             alert('불러오기 실패');
             console.error(err);
+         })
+         .finally(() => {
+            setLoading(false); // 데이터 로딩 완료
          });
-   }, []);
+   }, [id]);
 
    const ApplyBtn = async (applyId) => {
       try {
@@ -35,20 +40,37 @@ const CooperateDetail = () => {
       }
    };
 
+   if (loading) {
+      return (
+         <div
+            style={{
+               display: 'flex',
+               justifyContent: 'center',
+               marginTop: '2rem',
+            }}
+         >
+            <ClipLoader color="#004193" size={50} />
+         </div>
+      );
+   }
+
    return (
       <S.Wrap>
          <S.TitleWrap>
             <S.Title>{data.title}</S.Title>
-            <S.MenuBtn
-               onClick={() => openModal('Cooperate_edit_modal')}
-               editTo={`/cooperate/edit/${data.id}`}
-            >
-               <CiMenuKebab />
-            </S.MenuBtn>{' '}
+            {data.role === 'OWNER' && (
+               <S.MenuBtn
+                  onClick={() => openModal('Cooperate_edit_modal')}
+                  $editTo={`/cooperate/edit/${data.id}`}
+               >
+                  <CiMenuKebab />
+               </S.MenuBtn>
+            )}
          </S.TitleWrap>{' '}
          <CooperateEditModal
-            onclose={() => closeModal('Cooperate_edit_modal')}
             editTo={`/cooperate/edit/${data.id}`}
+            onclose={() => closeModal('Cooperate_edit_modal')}
+            id={data.id}
          />
          <S.UnderLine />
          <S.Content>{data.content}</S.Content>
@@ -69,9 +91,44 @@ const CooperateDetail = () => {
                </div>
             </S.DetailOne>
             <S.BtnWrap>
-               <S.DetailBtn onClick={ApplyBtn}>신청하기</S.DetailBtn>
+               {data.role !== 'OWNER' && (
+                  <S.DetailBtn
+                     role={data.role}
+                     onClick={() => {
+                        if (
+                           data.role !== 'OWNER' &&
+                           data.role !== 'PENDING' &&
+                           data.role !== 'ACCEPTED' &&
+                           data.role !== 'REJECTED' &&
+                           data.role !== 'LEAVE'
+                        ) {
+                           ApplyBtn(id);
+                        }
+                     }}
+                     disabled={
+                        data.role === 'OWNER' ||
+                        data.role === 'PENDING' ||
+                        data.role === 'ACCEPTED' ||
+                        data.role === 'REJECTED' ||
+                        data.role === 'LEAVE'
+                     }
+                  >
+                     {data.role === 'OWNER'
+                        ? '내 그룹'
+                        : data.role === 'PENDING'
+                          ? '대기중'
+                          : data.role === 'ACCEPTED'
+                            ? '수락됨'
+                            : data.role === 'REJECTED'
+                              ? '거절됨'
+                              : data.role === 'LEAVE'
+                                ? '탈퇴함'
+                                : '신청하기'}
+                  </S.DetailBtn>
+               )}
             </S.BtnWrap>
-         </S.Detail>
+         </S.Detail>{' '}
+         <ApplyMember />
       </S.Wrap>
    );
 };
