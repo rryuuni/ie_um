@@ -54,21 +54,23 @@ const CommunityWrite = () => {
                content: content.trim(),
                address: address.trim(),
             });
-            navigate(`/community/${id}`, {
+            navigate(`/community/${encodeURIComponent(String(id))}`, {
                replace: true,
                state: { from: origin },
             });
             return;
          } else {
-            newId = await createCommunity({
+            // newId = await createCommunity({
+            const res = await createCommunity({
                title: title.trim(),
                content: content.trim(),
                address: address.trim(),
             });
+            newId = res?.id ?? res?.data?.id ?? res?.data?.data?.id ?? null;
          }
          alert(isEdit ? '수정되었습니다.' : '작성되었습니다.');
          if (newId) {
-            navigate(`/community/${newId}`, {
+            navigate(`/community/${encodeURIComponent(String(id))}`, {
                replace: true,
                state: { from: origin },
             });

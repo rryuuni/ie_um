@@ -129,12 +129,13 @@ const Community = () => {
                   );
                })
             )}
+            <S.ButtonWrap>
+               <S.WriteButton onClick={() => navigate('/community/write')}>
+                  글 작성
+               </S.WriteButton>
+            </S.ButtonWrap>
          </P.List>
-         <S.ButtonWrap>
-            <S.WriteButton onClick={() => navigate('/community/write')}>
-               글 작성
-            </S.WriteButton>
-         </S.ButtonWrap>
+
          <MyPagination
             activePage={activePage}
             itemsCountPerPage={itemsPerPage}
