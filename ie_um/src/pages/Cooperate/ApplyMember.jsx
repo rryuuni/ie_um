@@ -1,10 +1,8 @@
 import axiosInstance from '../../api/AxiosInstance';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import * as S from '../Cooperate/Style/ApplyMemberStyle';
 
-const ApplyMember = () => {
-   const { id: accompanyId } = useParams();
+const ApplyMember = ({ accompanyId, role }) => {
    const [data, setData] = useState(null);
    const [error, setError] = useState(false);
    const [loading, setLoading] = useState(true);
@@ -53,7 +51,7 @@ const ApplyMember = () => {
    if (loading) return <p>신청자 목록 로딩 중...</p>;
    if (error) return <p>신청자 목록 불러오기 실패</p>;
 
-   if (!data || data.role !== 'OWNER') return null;
+   if (!data || role !== 'OWNER') return null;
 
    const applicants = data.accompanyApplyResDtos || [];
 
