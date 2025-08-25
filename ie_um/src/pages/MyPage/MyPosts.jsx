@@ -32,15 +32,12 @@ const MyPosts = () => {
          year: 'numeric',
          month: '2-digit',
          day: '2-digit',
-         hour: '2-digit',
-         minute: '2-digit',
-         hour12: false,
       });
    };
 
    // 페이지네이션
    const [activePage, setActivePage] = useState(1);
-   const itemsPerPage = 7;
+   const itemsPerPage = 8;
    const last = activePage * itemsPerPage;
    const first = last - itemsPerPage;
    const currentItems = useMemo(
@@ -51,7 +48,7 @@ const MyPosts = () => {
    return (
       <S.Container>
          <S.Title>내가 쓴 글</S.Title>
-         <S.List>
+         <S.List style={{ minHeight: 550 }}>
             {loading ? (
                <li
                   style={{
@@ -83,6 +80,7 @@ const MyPosts = () => {
                      <li key={id}>
                         <Link
                            to={`/community/${id}`}
+                           state={{ from: 'mypage/posts' }}
                            style={{ textDecoration: 'none', color: 'inherit' }}
                         >
                            <div

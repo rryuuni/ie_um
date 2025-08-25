@@ -1,5 +1,4 @@
 import axiosInstance from "../api/AxiosInstance";
-import api from "./client";
 
 // 불러오기
 export async function fetchCommunities() {
@@ -19,7 +18,7 @@ export async function createCommunity({title, content, address}) {
 
 // 커뮤니티 상세 조회
 export async function getCommunity(id) {
-  const res = await api.get(`/api/communities/${id}`);
+  const res = await axiosInstance.get(`/api/communities/${id}`);
   return res.data?.data;
 }
 

@@ -1,7 +1,6 @@
 import { RiMapPinFill } from 'react-icons/ri';
 import * as S from './Style/CommunityWriteStyle';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import {
    createCommunity,
@@ -13,6 +12,8 @@ const CommunityWrite = () => {
    const navigate = useNavigate();
    const { id } = useParams();
    const isEdit = Boolean(id);
+   const { state } = useLocation();
+   const origin = state?.from ?? 'community';
 
    const [title, setTitle] = useState('');
    const [address, setAddress] = useState('');
@@ -45,6 +46,7 @@ const CommunityWrite = () => {
          return;
       }
       try {
+         let newId = null;
          if (isEdit) {
             await updateCommunity({
                id,
@@ -52,15 +54,29 @@ const CommunityWrite = () => {
                content: content.trim(),
                address: address.trim(),
             });
+            alert('수정되었습니다.');
+            navigate(`/community/${encodeURIComponent(String(id))}`, {
+               replace: true,
+               state: { from: origin },
+            });
+            return;
          } else {
-            await createCommunity({
+            const res = await createCommunity({
                title: title.trim(),
                content: content.trim(),
                address: address.trim(),
             });
+            newId = res?.id ?? res?.data?.id ?? res?.data?.data?.id ?? null;
          }
-         alert(isEdit ? '수정되었습니다.' : '작성되었습니다.');
-         navigate('/community');
+         alert('작성되었습니다.');
+         if (newId) {
+            navigate(`/community/${encodeURIComponent(String(id))}`, {
+               replace: true,
+               state: { from: origin },
+            });
+         } else {
+            navigate('/community', { replace: true });
+         }
       } catch (e) {
          console.error(e);
          alert(isEdit ? '수정에 실패했습니다.' : '작성에 실패했습니다.');
