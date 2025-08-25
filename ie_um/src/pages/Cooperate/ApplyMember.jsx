@@ -13,6 +13,7 @@ const ApplyMember = () => {
          .get(`/api/accompanies/apply/member/${accompanyId}`)
          .then((r) => {
             setData(r.data.data);
+            console.log(r.data.data);
          })
 
          .catch((err) => {
