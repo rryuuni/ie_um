@@ -53,7 +53,7 @@ const ApplyMember = ({ accompanyId, role }) => {
 
    if (!data || role !== 'OWNER') return null;
 
-   const applicants = data.accompanyApplyResDtos || [];
+   const applicants = data.applicants || [];
 
    return (
       <S.Wrap>
