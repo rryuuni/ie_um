@@ -7,6 +7,7 @@ const ApplyMember = () => {
    const { id: accompanyId } = useParams();
    const [data, setData] = useState(null);
    const [error, setError] = useState(false);
+   const [loading, setLoading] = useState(true);
 
    useEffect(() => {
       axiosInstance
@@ -19,8 +20,9 @@ const ApplyMember = () => {
          .catch((err) => {
             console.error('신청자 불러오기 에러:', err);
             setError(true);
-         });
-   }, []);
+         })
+         .finally(() => setLoading(false));
+   }, [accompanyId]);
 
    const handleAccept = async (applicantId) => {
       try {
@@ -48,7 +50,8 @@ const ApplyMember = () => {
       }
    };
 
-   if (error) return null;
+   if (loading) return <p>신청자 목록 로딩 중...</p>;
+   if (error) return <p>신청자 목록 불러오기 실패</p>;
 
    if (!data || data.role !== 'OWNER') return null;
 
