@@ -54,7 +54,7 @@ const Cooperate = () => {
          <S.CreateBtn onClick={() => navigate('/cooperate/write')}>
             그룹생성
          </S.CreateBtn>
-         {loading ? ( // ✅ 로딩 중일 때 스피너 표시
+         {loading ? (
             <div
                style={{
                   display: 'flex',

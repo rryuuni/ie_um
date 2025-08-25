@@ -16,6 +16,7 @@ export const Title = styled.h1`
 export const List = styled.div`
    list-style: none;
    margin-top: 30px;
+   min-height: 480px;
 `;
 
 export const PostLink = styled(Link)`
