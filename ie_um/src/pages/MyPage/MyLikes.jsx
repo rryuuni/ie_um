@@ -39,7 +39,7 @@ const MyLikes = () => {
    };
 
    const [activePage, setActivePage] = useState(1);
-   const itemsPerPage = 7;
+   const itemsPerPage = 8;
    const last = activePage * itemsPerPage;
    const first = last - itemsPerPage;
    const currentItems = useMemo(

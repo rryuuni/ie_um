@@ -26,7 +26,7 @@ const Community = () => {
    }, [list, query]);
 
    // 페이지네이션
-   const itemsPerPage = 7;
+   const itemsPerPage = 6;
    const last = activePage * itemsPerPage;
    const first = last - itemsPerPage;
    const currentItems = filtered.slice(first, last);
