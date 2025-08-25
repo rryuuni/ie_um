@@ -1,12 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import * as S from './Style/CommunityDetailStyle';
-import {
-   RiMapPinFill,
-   RiHeart3Line,
-   RiMore2Fill,
-   RiHeart3Fill,
-} from 'react-icons/ri';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import useModal from '../../hooks/useModal';
 import EditModal from '../../components/Modal/EditModal';
 import {
@@ -15,7 +8,14 @@ import {
    likeCommunity,
    unlikeCommunity,
 } from '../../api/community';
+import * as S from './Style/CommunityDetailStyle';
 import ClipLoader from 'react-spinners/ClipLoader';
+import {
+   RiMapPinFill,
+   RiHeart3Line,
+   RiMore2Fill,
+   RiHeart3Fill,
+} from 'react-icons/ri';
 
 const CommunityDetail = () => {
    const { id } = useParams();
@@ -31,6 +31,9 @@ const CommunityDetail = () => {
 
    const myId = Number(localStorage.getItem('memberId'));
    const MODAL_ID = 'edit_modal';
+
+   const { state } = useLocation();
+   const origin = state?.from ?? 'community';
 
    const toLocal = (s) => {
       if (!s) return '';
@@ -106,14 +109,27 @@ const CommunityDetail = () => {
       try {
          await deleteCommunity(id);
          alert('삭제되었습니다.');
-         navigate('/community');
+         navigate(backAfterDelete, { replace: true });
       } catch (e) {
          console.error(e);
          const code = e?.response?.status;
          if (code === 401 || code === 403) alert('삭제 권한이 없습니다.');
          else alert('삭제에 실패했습니다.');
       }
+      navigate(backAfterDelete, { replace: true });
    };
+
+   // 모달 경로
+   const goEdit = () => {
+      navigate(`/community/edit/${id}`, { state: { from: origin } });
+   };
+
+   const backAfterDelete =
+      origin === 'mypage/posts'
+         ? '/mypage/posts'
+         : origin === 'mypage/likes'
+           ? '/mypage/likes'
+           : '/community';
 
    if (loading) {
       return (
@@ -144,9 +160,9 @@ const CommunityDetail = () => {
       <S.Container>
          <EditModal
             modalId={MODAL_ID}
-            onClose={() => closeModal('edit_modal')}
+            onClose={() => closeModal(MODAL_ID)}
             id={post.id}
-            onEdit={() => navigate(`/community/edit/${post.id}`)}
+            onEdit={goEdit}
             onDelete={onDelete}
          />
          <S.Inform>

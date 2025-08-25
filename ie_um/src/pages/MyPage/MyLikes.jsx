@@ -1,9 +1,9 @@
-import { RiHeart3Fill } from 'react-icons/ri';
-import * as S from '../../styles/PostStyle';
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import MyPagination from '../../components/Pagination';
 import { fetchMyLikedCommunities } from '../../api/community';
+import { RiHeart3Fill } from 'react-icons/ri';
+import * as S from '../../styles/PostStyle';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const MyLikes = () => {
@@ -39,7 +39,7 @@ const MyLikes = () => {
    };
 
    const [activePage, setActivePage] = useState(1);
-   const itemsPerPage = 7;
+   const itemsPerPage = 8;
    const last = activePage * itemsPerPage;
    const first = last - itemsPerPage;
    const currentItems = useMemo(
@@ -50,7 +50,7 @@ const MyLikes = () => {
    return (
       <S.Container>
          <S.Title>좋아요한 글</S.Title>
-         <S.List>
+         <S.List style={{ minHeight: 550 }}>
             {loading ? (
                <li
                   style={{
@@ -82,6 +82,7 @@ const MyLikes = () => {
                      <li key={id}>
                         <Link
                            to={`/community/${id}`}
+                           state={{ from: 'mypage/likes' }}
                            style={{ textDecoration: 'none', color: 'inherit' }}
                         >
                            <div
