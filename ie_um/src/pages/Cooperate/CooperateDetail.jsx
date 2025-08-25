@@ -128,7 +128,9 @@ const CooperateDetail = () => {
                )}
             </S.BtnWrap>
          </S.Detail>{' '}
-         <ApplyMember />
+         {data.role === 'OWNER' && (
+            <ApplyMember accompanyId={data.id} role={data.role} />
+         )}
       </S.Wrap>
    );
 };
